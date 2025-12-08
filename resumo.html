@@ -1,0 +1,2830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="image.png" type="image/png" />
+    <meta name="theme-color" content="#38bdf8" />
+    <title>Resumo – APH</title>
+
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #0b1222f2;
+        --muted: #94a3b8;
+        --text: #e5e7eb;
+        --accent: #38bdf8;
+        --border: #334155;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(
+            1200px 600px at 10% -10%,
+            rgba(56, 189, 248, 0.15),
+            transparent
+          ),
+          radial-gradient(
+            1000px 600px at 120% 20%,
+            rgba(34, 197, 94, 0.12),
+            transparent
+          ),
+          var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 0 16px;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--accent);
+      }
+
+      .btn {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: #0a1222;
+        color: var(--text);
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: 700;
+        display: inline-block;
+        margin: 4px 0;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, #38bdf8, #34d399);
+        border-color: transparent;
+        color: #001018;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        background: var(--card);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: var(--accent);
+      }
+      h3 {
+        margin-bottom: 6px;
+      }
+      p {
+        line-height: 1.45;
+      }
+      ul {
+        margin: 8px 0 10px 20px;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>📘 Resumo – Atendimento Pré Hospitalar</h1>
+        <div>
+          <a
+            class="btn primary"
+            href="https://m00nh0rs3.github.io/simulado-aph/"
+            >Simulado - APH</a
+          >
+
+          <a
+            class="btn primary"
+            href="./Material de Estudo - ITO.pdf"
+            target="_blank"
+            >📄 Acessar ITO 23</a
+          >
+        </div>
+      </header>
+
+      <!-- SUMÁRIO -->
+      <section class="card" id="sumario">
+        <h2>📑 Sumário</h2>
+        <ul>
+          <li><a href="#mod100">Módulo 100 – Avaliação do Paciente</a></li>
+          <li><a href="#mod200">Módulo 200 – Suporte Básico de Vida</a></li>
+          <li><a href="#mod300">Módulo 300 – Emergências Clínicas</a></li>
+          <li><a href="#mod400">Módulo 400 – Emergências Obstétricas</a></li>
+          <li><a href="#mod500">Módulo 500 – Emergências Traumáticas</a></li>
+          <li><a href="#mod600">Módulo 600 – Choque e Ambientais</a></li>
+          <li><a href="#mod700">Módulo 700 – Protocolos Gerais</a></li>
+          <li><a href="#ap01">Apêndice 01 – Sinais Vitais</a></li>
+          <li><a href="#ap02">Apêndice 02 – Glasgow</a></li>
+        </ul>
+      </section>
+      <!-- ===================== MÓDULO 100 — AVALIAÇÃO DO PACIENTE ===================== -->
+      <section class="card" id="mod100">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 100 – AVALIAÇÃO DO PACIENTE</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P101 — AVALIAÇÃO DA CENA ===================== -->
+        <h3>P101 – Avaliação da Cena</h3>
+
+        <h4>Objetivo</h4>
+        <p>
+          Garantir segurança, entender o que aconteceu e antecipar as lesões
+          antes mesmo de tocar no paciente.
+        </p>
+
+        <h4>1. O que é a Avaliação da Cena?</h4>
+        <p>
+          É a análise que começa antes de chegar no paciente: no deslocamento,
+          na chegada e na leitura dos detalhes da cena.
+        </p>
+        <p>Ela responde a:</p>
+        <ul>
+          <li>A cena é segura?</li>
+          <li>Quantas vítimas existem?</li>
+          <li>Preciso de apoio?</li>
+          <li>Posso esperar a cena ficar segura ou preciso extrair rápido?</li>
+          <li>O que aconteceu com o paciente?</li>
+        </ul>
+
+        <h4>2. Conceitos essenciais</h4>
+
+        <h4>2.1 Mecanismo de Lesão (MDL)</h4>
+        <p>Serve para antecipar lesões.</p>
+
+        <h4>MLE – Mecanismo de Lesão Específico</h4>
+        <p>Energia focada em uma área → lesões previsíveis.</p>
+        <p>
+          <strong>Ex:</strong> corte em dedo, perfuração isolada, fratura
+          simples de antebraço.
+        </p>
+
+        <h4>MLS – Mecanismo de Lesão Significativo</h4>
+        <p>Alta energia, lesões imprevisíveis, risco de TRM. Inclui:</p>
+        <ul>
+          <li>Colisão de alta velocidade</li>
+          <li>Capotamento</li>
+          <li>
+            Intrusão &gt; 30 cm (lado do ocupante) ou &gt; 45 cm (outros lados)
+          </li>
+          <li>Ejeção parcial ou total</li>
+          <li>Atropelamento</li>
+          <li>Quedas &gt; 2 m</li>
+          <li>Motocicleta/bicicleta com alta energia</li>
+          <li>Trauma penetrante em cabeça/tórax/abdômen</li>
+          <li>Trauma contuso violento</li>
+          <li>Desaceleração brusca</li>
+          <li>Mergulho em água rasa</li>
+          <li>Inconsciência pós-trauma</li>
+          <li>Déficit neurológico após trauma</li>
+        </ul>
+
+        <h4>2.2 Fatores Clínicos e Ambientais (FCA)</h4>
+        <ul>
+          <li>Cilindro de O₂, inaladores, aspiradores</li>
+          <li>Cadeira de rodas, bengalas</li>
+          <li>Medicações → doenças crônicas</li>
+          <li>Drogas, álcool</li>
+          <li>Substâncias tóxicas</li>
+          <li>Ambiente insalubre (maus-tratos, abandono)</li>
+          <li>Ambientes fechados (risco tóxico)</li>
+          <li>Viagem longa → risco de TEP</li>
+          <li>Sinais de esforço</li>
+          <li>Curativos e imobilizações prévias</li>
+          <li>Idade, peso, roupas</li>
+        </ul>
+
+        <h4>3. Condutas Gerais</h4>
+
+        <h4>3.1 Coleta de informações (ainda no deslocamento)</h4>
+        <ul>
+          <li>Queixa principal</li>
+          <li>Idade/gênero</li>
+          <li>MDL ou FCA</li>
+          <li>Nível de consciência</li>
+          <li>Número de vítimas</li>
+        </ul>
+        <p>
+          <strong>Atenção:</strong> paciente inconsciente → suspeitar de PCR.
+        </p>
+
+        <h4>3.2 Segurança da Cena</h4>
+        <ul>
+          <li>Sinalização</li>
+          <li>Iluminação</li>
+          <li>EPI completo</li>
+          <li>Isolamento da área</li>
+        </ul>
+        <p><strong>Risco x Benefício:</strong></p>
+        <ul>
+          <li>Arrisque muito para salvar muito</li>
+          <li>Arrisque pouco para salvar pouco</li>
+          <li>Arrisque nada se nada pode ser salvo</li>
+        </ul>
+
+        <h4>3.3 Inspeção Visual Inicial</h4>
+        <ul>
+          <li>Determinar se é trauma ou clínico</li>
+          <li>Identificar MDL e FCA</li>
+          <li>Avaliar necessidade de RMC</li>
+          <li>Possibilidade de PCR traumática</li>
+          <li>Identificar casos de Load and Go</li>
+        </ul>
+        <p>Se múltiplas vítimas → iniciar TRIAGEM (START).</p>
+
+        <!-- ===================== P102 — AVALIAÇÃO PRIMÁRIA ===================== -->
+        <h3>P102 – Avaliação Primária (XABCDE)</h3>
+
+        <p>Prioridade máxima: identificar e tratar ameaças imediatas à vida.</p>
+
+        <h4>XABCDE — Ordem Exata</h4>
+        <ul>
+          <li>X – Hemorragia exsanguinante</li>
+          <li>A – Vias aéreas + coluna cervical</li>
+          <li>B – Respiração</li>
+          <li>C – Circulação</li>
+          <li>D – Disfunção neurológica</li>
+          <li>E – Exposição</li>
+        </ul>
+
+        <h4>1. Impressão Geral</h4>
+        <ul>
+          <li>Postura</li>
+          <li>Cor da pele</li>
+          <li>Sudorese</li>
+          <li>Esforço respiratório</li>
+          <li>Nível de consciência</li>
+        </ul>
+        <p><strong>Má impressão geral = Load and Go.</strong></p>
+
+        <h4>2. X – Hemorragia Exsanguinante</h4>
+        <ul>
+          <li>Buscar sangramentos massivos</li>
+          <li>Tratar imediatamente</li>
+          <li>Compressão ou torniquete</li>
+        </ul>
+
+        <h4>3. A – Vias aéreas + coluna cervical</h4>
+        <ul>
+          <li>Abrir VA</li>
+          <li>Estabilizar coluna se trauma</li>
+          <li>Head tilt/chin lift (clínico)</li>
+          <li>Jaw thrust (trauma)</li>
+          <li>Checar obstrução</li>
+          <li>COF se inconsciente ou ECG ≤ 8</li>
+        </ul>
+
+        <h4>4. B – Respiração</h4>
+        <ul>
+          <li>Expor tórax</li>
+          <li>Avaliar profundidade, frequência, simetria, esforço</li>
+          <li>Palpar</li>
+          <li>Auscultar quando possível</li>
+          <li>Reforçar O₂ se desconforto</li>
+          <li>Identificar IRpA</li>
+        </ul>
+
+        <h4>5. C – Circulação</h4>
+        <p>Avaliar H3P:</p>
+        <ul>
+          <li>Hemorragias externas</li>
+          <li>Pulso</li>
+          <li>Perfusão</li>
+          <li>Pele</li>
+        </ul>
+        <p>Se suspeita de choque:</p>
+        <ul>
+          <li>Oxigenar</li>
+          <li>Elevar MMII (se clínico)</li>
+          <li>Tratar causa</li>
+          <li>PA precoce</li>
+        </ul>
+
+        <h4>6. D – Disfunção Neurológica</h4>
+        <ul>
+          <li>ECG + pupilas</li>
+          <li>Glicemia se ECG &lt; 15</li>
+          <li>Buscar intoxicações</li>
+          <li>Testar motricidade e sensibilidade</li>
+          <li>Cincinnati se suspeita de AVE</li>
+        </ul>
+
+        <h4>7. E – Exposição</h4>
+        <ul>
+          <li>Expor o mínimo necessário</li>
+          <li>Buscar lesões</li>
+          <li>Prevenir hipotermia</li>
+          <li>Avaliar red flags de Load and Go</li>
+        </ul>
+        <p><strong>Todo paciente irresponsivo é Load and Go.</strong></p>
+
+        <!-- ===================== P103 — SECUNDÁRIA NO TRAUMA ===================== -->
+        <h3>P103 – Secundária no Trauma</h3>
+
+        <p>
+          Realizada após o controle imediato. Inclui EFD, sinais vitais e
+          SAMPUM.
+        </p>
+
+        <h4>1. Exame Físico Detalhado (DCAP–QELS)</h4>
+        <ul>
+          <li>Deformidades</li>
+          <li>Contusões</li>
+          <li>Abrasões</li>
+          <li>Penetrações</li>
+          <li>Queimaduras</li>
+          <li>Edema</li>
+          <li>Lacerações</li>
+          <li>Sensibilidade</li>
+        </ul>
+
+        <h4>Regiões</h4>
+        <p>
+          <strong>Cabeça:</strong> hematomas, sangramentos, corpos estranhos
+        </p>
+        <p><strong>Olhos:</strong> pupilas, sangue</p>
+        <p><strong>Nariz:</strong> sangue, líquor</p>
+        <p><strong>Boca:</strong> corpos estranhos, dentes</p>
+        <p><strong>Orelhas:</strong> sangue, líquor</p>
+        <p><strong>Pescoço:</strong> turgência jugular, desvio traqueal</p>
+
+        <p><strong>Tórax:</strong> movimento, enfisema, retrações, ausculta</p>
+        <p><strong>Abdome:</strong> dor, rigidez, distensão</p>
+        <p><strong>Pelve:</strong> palpação única → instabilidade = parar</p>
+        <p><strong>Genitália:</strong> sangramentos, líquido amniótico</p>
+        <p><strong>Membros:</strong> pulso distal, motricidade</p>
+        <p><strong>Dorso:</strong> alinhamento da coluna</p>
+
+        <h4>2. Sinais Vitais</h4>
+        <ul>
+          <li>PA</li>
+          <li>Pulso</li>
+          <li>FR</li>
+          <li>Temperatura</li>
+          <li>SpO₂</li>
+        </ul>
+
+        <h4>3. SAMPUM</h4>
+        <ul>
+          <li>Sinais e sintomas</li>
+          <li>Alergias</li>
+          <li>Medicamentos</li>
+          <li>Passado / prenhez</li>
+          <li>Última refeição</li>
+          <li>Mecanismo de lesão</li>
+        </ul>
+
+        <!-- ===================== P104 — RMC ===================== -->
+        <h3>P104 – Restrição do Movimento da Coluna (RMC)</h3>
+
+        <h4>Objetivo</h4>
+        <p>Evitar lesão medular secundária. RMC é seletiva.</p>
+
+        <h4>Critérios para RMC</h4>
+        <ul>
+          <li>Idade ≥ 65</li>
+          <li>Déficit neurológico</li>
+          <li>MLS</li>
+          <li>Lesões distratoras</li>
+          <li>Dificuldade de comunicação</li>
+          <li>Dor/sensibilidade em coluna</li>
+        </ul>
+
+        <h4>Quando aplicar?</h4>
+        <h4>Durante a Primária</h4>
+        <ul>
+          <li>Vítima instável</li>
+          <li>Vítima estável com fatores que dificultam avaliação</li>
+        </ul>
+
+        <h4>Durante a Secundária</h4>
+        <ul>
+          <li>Dor em coluna</li>
+          <li>Déficit motor</li>
+          <li>Idade ≥ 65</li>
+          <li>Lesões supraclaviculares</li>
+          <li>Alta energia</li>
+        </ul>
+
+        <h4>Após Secundária</h4>
+        <p>Movimento de cabeça 45° → se doer, RMC.</p>
+
+        <h4>Se tudo normal → não fazer RMC.</h4>
+
+        <h4>Situações especiais</h4>
+        <ul>
+          <li>Trauma penetrante → não fazer</li>
+          <li>Paciente em pé → autoextração</li>
+          <li>Sentado instável → maca colher</li>
+          <li>TCE grave → cabeceira 30°</li>
+        </ul>
+
+        <h4>Transporte</h4>
+        <ul>
+          <li>Maca a vácuo (preferência)</li>
+          <li>Maca da viatura</li>
+          <li>Prancha rígida (&lt; 30 min)</li>
+        </ul>
+
+        <!-- ===================== P105 — SECUNDÁRIA CLÍNICO ===================== -->
+        <h3>P105 – Secundária do Paciente Clínico</h3>
+
+        <h4>Objetivo</h4>
+        <p>Identificar causas clínicas e sinais de gravidade.</p>
+
+        <h4>Divisão</h4>
+        <ul>
+          <li>Investigação (OPQRST)</li>
+          <li>Histórico (SAMPUN)</li>
+          <li>Exame direcionado</li>
+        </ul>
+
+        <h4>OPQRST</h4>
+        <ul>
+          <li>Origem</li>
+          <li>Piora/alívio</li>
+          <li>Qualidade</li>
+          <li>Irradiação</li>
+          <li>Severidade</li>
+          <li>Tempo</li>
+        </ul>
+
+        <h4>SAMPUN</h4>
+        <p>Mesma estrutura do trauma.</p>
+
+        <h4>Exame Físico Clínico</h4>
+        <ul>
+          <li>Dor abdominal → quadrantes</li>
+          <li>Dispneia → ausculta e postura</li>
+          <li>Dor torácica → sinais de IAM</li>
+        </ul>
+
+        <!-- ===================== P106 — DECISÃO DE TRANSPORTE ===================== -->
+        <h3>P106 – Decisão de Transporte e Solicitação de Apoio</h3>
+
+        <h4>Quando é Load and Go?</h4>
+        <ul>
+          <li>Má impressão geral</li>
+          <li>IRpA</li>
+          <li>Hemorragia grave</li>
+          <li>Choque</li>
+          <li>Déficit neurológico progressivo</li>
+          <li>AVE com alteração pupilar</li>
+          <li>TCE grave</li>
+          <li>Dor torácica crítica</li>
+          <li>Trauma com MLS</li>
+          <li>Paciente irresponsivo</li>
+        </ul>
+
+        <h4>Tipos de transporte</h4>
+        <ul>
+          <li>Imediato</li>
+          <li>Rápido com estabilização mínima</li>
+          <li>Estável</li>
+        </ul>
+
+        <h4>Solicitar SAV quando:</h4>
+        <ul>
+          <li>Suspeita de IAM</li>
+          <li>AVE</li>
+          <li>PCR revertida</li>
+          <li>Politrauma</li>
+          <li>IRpA</li>
+          <li>Queimaduras extensas</li>
+          <li>Anafilaxia</li>
+        </ul>
+
+        <!-- ===================== P107 — AVALIAÇÃO CONTINUADA ===================== -->
+        <h3>P107 – Avaliação Continuada</h3>
+
+        <h4>O que repetir?</h4>
+        <ul>
+          <li>Sinais vitais</li>
+          <li>Nível de consciência</li>
+          <li>Pupilas</li>
+          <li>Perfusão</li>
+          <li>Dor</li>
+          <li>Ventilação</li>
+        </ul>
+
+        <p><strong>Intervalo:</strong></p>
+        <ul>
+          <li>Críticos → a cada 5 min</li>
+          <li>Estáveis → a cada 15 min</li>
+        </ul>
+
+        <!-- ===================== P108 — TRANSFERÊNCIA DE CUIDADOS ===================== -->
+        <h3>P108 – Transferência de Cuidados e Pós-atendimento</h3>
+
+        <h4>O que entregar ao hospital</h4>
+        <ul>
+          <li>RAPH completo</li>
+          <li>SAMPUN</li>
+          <li>Achados da primária e secundária</li>
+          <li>Sinais vitais</li>
+          <li>Intervenções realizadas</li>
+          <li>Evolução</li>
+          <li>Resposta ao tratamento</li>
+        </ul>
+
+        <h4>Pós-atendimento</h4>
+        <ul>
+          <li>Higienizar materiais</li>
+          <li>Registrar informações</li>
+          <li>Revisar equipamentos</li>
+          <li>Preparar viatura</li>
+        </ul>
+      </section>
+      <!-- ===================== MÓDULO 200 – SUPORTE BÁSICO DE VIDA (SBV) ===================== -->
+      <section class="card" id="mod200">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 200 – SUPORTE BÁSICO DE VIDA (SBV)</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P201 – INFORMAÇÕES GERAIS ===================== -->
+        <h3>P201 – Informações Gerais para SBV</h3>
+
+        <h4>Objetivo do SBV</h4>
+        <p>
+          Manter oxigenação e perfusão mínimas até a chegada de suporte
+          avançado, evitando lesão neurológica.
+        </p>
+        <p>
+          <strong
+            >4–6 minutos sem circulação → dano neurológico irreversível.</strong
+          >
+        </p>
+
+        <h4>Cadeia de Sobrevivência (Adulto)</h4>
+        <ul>
+          <li>Reconhecimento precoce + acionar ajuda</li>
+          <li>RCP de alta qualidade</li>
+          <li>DEA rápido</li>
+          <li>Suporte avançado</li>
+          <li>Cuidados pós-PCR</li>
+        </ul>
+
+        <h4>Componentes da RCP de alta qualidade</h4>
+        <ul>
+          <li>Comprimir forte e rápido</li>
+          <li>Profundidade: 5–6 cm (adulto)</li>
+          <li>Frequência: 100–120/min</li>
+          <li>Permitir reexpansão completa</li>
+          <li>Interrupções &lt; 10 s</li>
+          <li>Ventilar sem excesso</li>
+          <li>Trocar reanimador a cada 2 min</li>
+        </ul>
+
+        <h4>Situações que exigem ação imediata</h4>
+        <ul>
+          <li>Inconsciência</li>
+          <li>Respiração agônica ou ausente</li>
+          <li>Ausência de pulso</li>
+        </ul>
+        <p><strong>Ausência de pulso = iniciar RCP imediatamente.</strong></p>
+
+        <!-- ===================== P202 – OVACE ===================== -->
+        <h3>P202 – Obstrução de Vias Aéreas por Corpo Estranho (OVACE)</h3>
+
+        <h4>1. Identificação – Quando suspeitar?</h4>
+        <ul>
+          <li>Paciente comendo, brincando ou manipulando objetos pequenos</li>
+          <li>Não consegue falar</li>
+          <li>Tosse ineficaz</li>
+          <li>Estridor / ruído</li>
+          <li>Cianose</li>
+          <li>Mãos no pescoço (sinal universal)</li>
+        </ul>
+
+        <h4>2. Condutas</h4>
+
+        <h4>A. Adulto e criança conscientes com obstrução grave</h4>
+        <ul>
+          <li>Incentivar tossir</li>
+          <li>Se tosse ineficaz → Manobra de Heimlich</li>
+          <li>Repetir até desobstruir ou perder consciência</li>
+        </ul>
+
+        <h4>B. Adulto e criança inconscientes</h4>
+        <ul>
+          <li>Colocar no chão</li>
+          <li>Chamar apoio</li>
+          <li>Iniciar RCP</li>
+          <li>A cada ciclo, abrir boca e retirar corpo estranho VISÍVEL</li>
+          <li>Não fazer varredura cega</li>
+        </ul>
+
+        <h4>C. Lactente (&lt;1 ano)</h4>
+
+        <h5>Consciente:</h5>
+        <ul>
+          <li>5 tapotagens nas costas</li>
+          <li>5 compressões torácicas (dois dedos)</li>
+        </ul>
+
+        <h5>Inconsciente:</h5>
+        <ul>
+          <li>Iniciar RCP</li>
+          <li>Procurar corpo estranho visível a cada ciclo</li>
+        </ul>
+
+        <h4>Sinais de resolução</h4>
+        <ul>
+          <li>Choro</li>
+          <li>Tosse efetiva</li>
+          <li>Respiração normal</li>
+        </ul>
+
+        <!-- ===================== P203 – PARADA RESPIRATÓRIA ===================== -->
+        <h3>P203 – Parada Respiratória (PR) – Adulto, Criança e Lactente</h3>
+
+        <h4>Objetivo</h4>
+        <p>Restaurar respiração antes que evolua para PCR.</p>
+
+        <h4>1. Como identificar PR?</h4>
+        <ul>
+          <li>Inconsciência ou responsividade baixa</li>
+          <li>Ausência de movimentos respiratórios</li>
+          <li>Pulso presente</li>
+        </ul>
+
+        <p><strong>Sem pulso = PCR (ver P205/P206).</strong></p>
+
+        <h4>2. Condutas por faixa etária</h4>
+
+        <h4>Adulto</h4>
+        <ul>
+          <li>1 ventilação a cada 5–6 s</li>
+          <li>Reavaliar pulso a cada 2 min</li>
+          <li>Usar BVM quando disponível</li>
+          <li>Evitar hiperventilação</li>
+        </ul>
+
+        <h4>Criança</h4>
+        <ul>
+          <li>1 ventilação a cada 3–5 s</li>
+          <li>Reavaliar pulso a cada 2 min</li>
+          <li>FC &lt; 60 com má perfusão → iniciar RCP</li>
+        </ul>
+
+        <h4>Lactente</h4>
+        <ul>
+          <li>Mesma conduta da criança</li>
+          <li>Volume menor</li>
+          <li>Observar expansão suave</li>
+        </ul>
+
+        <h4>3. Ventilação eficaz</h4>
+        <ul>
+          <li>Selo facial adequado</li>
+          <li>Elevar queixo / tração mandibular</li>
+          <li>Ventilar apenas até expandir tórax</li>
+        </ul>
+
+        <!-- ===================== P205 – PCR EM CRIANÇA E LACTENTE ===================== -->
+        <h3>P205 – PCR em Criança e Lactente</h3>
+
+        <h4>Quando iniciar RCP?</h4>
+        <ul>
+          <li>Ausência de pulso</li>
+          <li>FC &lt; 60 bpm + má perfusão</li>
+        </ul>
+
+        <h4>Sequência SBV – Criança/Lactente</h4>
+        <ol>
+          <li>Ver cena</li>
+          <li>Ver resposta</li>
+          <li>Chamar ajuda</li>
+          <li>Checar respiração</li>
+          <li>Checar pulso (até 10s)</li>
+          <li>Iniciar RCP se sem pulso ou FC &lt; 60</li>
+        </ol>
+
+        <h4>RCP – Criança</h4>
+        <ul>
+          <li>Profundidade: 1/3 do tórax (≈5 cm)</li>
+          <li>100–120/min</li>
+          <li>30:2 (1 socorrista)</li>
+          <li>15:2 (2 socorristas)</li>
+        </ul>
+
+        <h4>RCP – Lactente</h4>
+        <ul>
+          <li>Profundidade: 1/3 do tórax (≈4 cm)</li>
+          <li>2 dedos (1 socorrista)</li>
+          <li>2 polegares (2 socorristas)</li>
+          <li>100–120/min</li>
+          <li>30:2 ou 15:2 conforme número de socorristas</li>
+        </ul>
+
+        <h4>Ventilações</h4>
+        <ul>
+          <li>Volume pequeno</li>
+          <li>Apenas até elevar tórax</li>
+        </ul>
+
+        <h4>Troca de reanimadores</h4>
+        <p>A cada 2 min.</p>
+
+        <!-- ===================== P206 – PCR ADULTO ===================== -->
+        <h3>P206 – PCR Adulto</h3>
+
+        <h4>Identificação</h4>
+        <ul>
+          <li>Inconsciência</li>
+          <li>Respiração agônica/ausente</li>
+          <li>Ausência de pulso</li>
+        </ul>
+
+        <h4>Sequência SBV – Adulto</h4>
+        <ol>
+          <li>Ver cena</li>
+          <li>Ver responsividade</li>
+          <li>Acionar 193 / pedir DEA</li>
+          <li>Ver respiração</li>
+          <li>Ver pulso</li>
+          <li>Sem pulso → iniciar RCP</li>
+        </ol>
+
+        <h4>RCP – Adulto</h4>
+
+        <h5>Compressões</h5>
+        <ul>
+          <li>Profundidade 5–6 cm</li>
+          <li>100–120/min</li>
+          <li>Braços estendidos</li>
+          <li>Reexpansão total</li>
+          <li>Interrupções mínimas</li>
+        </ul>
+
+        <h5>Ventilações</h5>
+        <ul>
+          <li>30:2</li>
+          <li>Ventilar suavemente</li>
+          <li>Observar expansão</li>
+        </ul>
+
+        <h5>BVM</h5>
+        <ul>
+          <li>Usar sempre que disponível</li>
+        </ul>
+
+        <h4>Observações importantes</h4>
+        <ul>
+          <li>Trocar reanimador a cada 2 min</li>
+          <li>Chocáveis: FV/TVp</li>
+          <li>Não chocáveis: AESP/assistolia</li>
+          <li>DEA sempre que houver</li>
+        </ul>
+
+        <!-- ===================== P207 – DEA ===================== -->
+        <h3>P207 – Desfibrilador Externo Automático (DEA)</h3>
+
+        <h4>Objetivo</h4>
+        <p>Desfibrilar rapidamente ritmos chocáveis: FV e TVp.</p>
+
+        <h4>Uso correto</h4>
+        <ol>
+          <li>Ligar</li>
+          <li>Expor tórax</li>
+          <li>Colocar pás</li>
+          <li>Seguir comandos</li>
+          <li>Se indicar choque → afastar todos</li>
+          <li>Aplicar choque</li>
+          <li>Retomar RCP por 2 min</li>
+        </ol>
+
+        <h4>Posições especiais</h4>
+        <ul>
+          <li>Marca-passo → afastar 2–3 cm</li>
+          <li>Tórax molhado → secar</li>
+          <li>Pelo excessivo → raspar</li>
+          <li>&lt; 8 anos → pás pediátricas, se disponíveis</li>
+        </ul>
+
+        <!-- ===================== P208 – PCR TRAUMÁTICA ===================== -->
+        <h3>P208 – Parada Cardiorrespiratória Traumática (PCR-T)</h3>
+
+        <h4>Importante</h4>
+        <p>
+          A PCR traumática NÃO segue a lógica da PCR clínica. O foco é corrigir
+          causas reversíveis.
+        </p>
+
+        <h4>Causas reversíveis principais</h4>
+        <ul>
+          <li>Hipóxia grave</li>
+          <li>Hemorragia</li>
+          <li>Pneumotórax hipertensivo</li>
+          <li>Tamponamento cardíaco</li>
+          <li>Obstrução de VA</li>
+          <li>Lesões incompatíveis com a vida</li>
+        </ul>
+
+        <h4>Conduta (ordem correta segundo a ITO)</h4>
+        <ol>
+          <li>Controlar hemorragias massivas</li>
+          <li>Garantir VA</li>
+          <li>Ventilar</li>
+          <li>Suspeitando de pneumo hipertensivo → descompressão imediata</li>
+          <li>Trauma penetrante → curativo de 3 lados</li>
+          <li>Iniciar RCP somente após A e B</li>
+          <li>RMC se possível sem atrasar</li>
+          <li>Transporte imediato</li>
+        </ol>
+
+        <h4>Diferenças entre PCR clínica e traumática</h4>
+        <ul>
+          <li>PCR clínica → prioridade é DEA</li>
+          <li>PCR traumática → foco é causa reversível</li>
+          <li>Ritmos chocáveis raros no trauma</li>
+        </ul>
+
+        <h4>Quando não iniciar RCP</h4>
+        <ul>
+          <li>Lesões incompatíveis com a vida</li>
+          <li>Decomposição</li>
+          <li>Decapitação</li>
+          <li>Rigidez cadavérica</li>
+          <li>Hemorragia massiva que não pode ser controlada</li>
+        </ul>
+
+        <h4>Transporte</h4>
+        <ul>
+          <li>Prioridade absoluta</li>
+          <li>Evitar atrasos</li>
+          <li>Possível necessidade de toracotomia</li>
+        </ul>
+      </section>
+
+      <!-- ===================== MÓDULO 300 — EMERGÊNCIAS CLÍNICAS E PSIQUIÁTRICAS ===================== -->
+      <section class="card" id="mod300">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 300 – EMERGÊNCIAS CLÍNICAS E PSIQUIÁTRICAS</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P301 — SUSPEITA DE IAM ===================== -->
+        <h3>P301 – Suspeita de Infarto Agudo do Miocárdio (IAM)</h3>
+
+        <h4>1. O que é SCA e IAM?</h4>
+        <p>
+          <strong>Síndromes Coronarianas Agudas (SCA)</strong> = redução súbita
+          do fluxo sanguíneo coronário.
+        </p>
+        <ul>
+          <li>Angina instável</li>
+          <li>IAM (infarto)</li>
+        </ul>
+        <p>
+          <strong>IAM = obstrução total</strong> da artéria coronária → morte
+          muscular cardíaca.
+        </p>
+
+        <h4>2. Por que é tão grave?</h4>
+        <ul>
+          <li>17,9 milhões de mortes/ano no mundo</li>
+          <li>400 mil infartos/ano no Brasil</li>
+          <li>30% morrem antes do hospital</li>
+          <li>Cada minuto sem fluxo = milhões de células morrem</li>
+        </ul>
+
+        <h4>3. Tipos importantes</h4>
+        <h4>Angina Estável</h4>
+        <ul>
+          <li>Dor previsível</li>
+          <li>Por esforço</li>
+          <li>Dura 5–15 min</li>
+          <li>Melhora com repouso ou nitrato</li>
+        </ul>
+
+        <h4>Angina Instável</h4>
+        <ul>
+          <li>Dor nova ou mais forte</li>
+          <li>Pode ocorrer em repouso</li>
+          <li>&gt; 20 min</li>
+          <li>Não melhora com nitrato</li>
+        </ul>
+
+        <h4>IAM</h4>
+        <ul>
+          <li>Obstrução total</li>
+          <li>Dor intensa e prolongada</li>
+          <li>Sudorese, náuseas, falta de ar</li>
+        </ul>
+
+        <h4>4. Como identificar IAM?</h4>
+        <p><strong>Dor torácica típica:</strong> aperto, peso, queimação.</p>
+        <ul>
+          <li>
+            <strong>Local:</strong> retroesternal, precordial ou epigástrica
+          </li>
+          <li>
+            <strong>Irradia:</strong> braço esquerdo, mandíbula, pescoço, costas
+          </li>
+          <li><strong>Duração:</strong> &gt; 20 min</li>
+        </ul>
+
+        <h4>Sintomas associados</h4>
+        <ul>
+          <li>Sudorese fria</li>
+          <li>Náuseas e vômitos</li>
+          <li>Palidez</li>
+          <li>Falta de ar</li>
+        </ul>
+
+        <h4>5. Avaliação Primária (XABCDE)</h4>
+        <ul>
+          <li>Saturação</li>
+          <li>Oxigênio 4–6 L/min se SpO₂ ≤ 94% ou desconforto</li>
+          <li>PA nos dois braços</li>
+          <li>Avaliar choque</li>
+          <li>Expor tórax</li>
+          <li>LOAD AND GO se palidez, sudorese, IRpA ou PAS &lt; 100</li>
+        </ul>
+
+        <h4>6. Avaliação Secundária</h4>
+        <h4>OPQRST</h4>
+        <ul>
+          <li>Início</li>
+          <li>Piora</li>
+          <li>Qualidade</li>
+          <li>Irradiação</li>
+          <li>Intensidade</li>
+          <li>Tempo de dor</li>
+        </ul>
+
+        <h4>SAMPUN</h4>
+        <ul>
+          <li>Sinais</li>
+          <li>Alergias</li>
+          <li>Medicamentos</li>
+          <li>Passado</li>
+          <li>Última refeição</li>
+          <li>Necessidades</li>
+        </ul>
+
+        <h4>7. Fatores de risco (TIDH²)</h4>
+        <ul>
+          <li>Tabagismo</li>
+          <li>Idade (H&gt;45 / M&gt;55)</li>
+          <li>Diabetes</li>
+          <li>Hipertensão</li>
+          <li>Histórico familiar</li>
+        </ul>
+
+        <h4>8. Equivalentes anginosos</h4>
+        <ul>
+          <li>Idosos</li>
+          <li>Diabéticos</li>
+          <li>Mulheres</li>
+          <li>Imunossuprimidos</li>
+        </ul>
+        <p><strong>Podem apresentar:</strong></p>
+        <ul>
+          <li>Falta de ar súbita</li>
+          <li>Sudorese fria</li>
+          <li>Náuseas</li>
+          <li>Cansaço extremo</li>
+          <li>Confusão mental</li>
+        </ul>
+
+        <h4>9. Conduta do Básico para IAM</h4>
+        <h4>O que fazer</h4>
+        <ul>
+          <li>Oxigênio se necessário</li>
+          <li>Monitorar sinais vitais</li>
+          <li>Cabeceira elevada</li>
+          <li>Tranquilizar</li>
+          <li>Retirar roupas apertadas</li>
+        </ul>
+
+        <h4>O que NÃO fazer</h4>
+        <ul>
+          <li>Não administrar nitrato</li>
+          <li>Não administrar AAS</li>
+          <li>Não atrasar transporte</li>
+          <li>Não permitir esforço</li>
+        </ul>
+
+        <h4>Transporte</h4>
+        <p><strong>Todo IAM é Load and Go.</strong></p>
+        <p>Solicitar SAV imediatamente.</p>
+
+        <h4>10. Destinação</h4>
+        <p>Unidade com trombólise ou hemodinâmica.</p>
+
+        <h4>Essência para prova</h4>
+        <ul>
+          <li>Dor &gt; 20 min</li>
+          <li>Sudorese</li>
+          <li>Irradiação</li>
+          <li>Nitrato NÃO melhora</li>
+          <li>Equivalentes anginosos</li>
+          <li>Load and Go</li>
+          <li>SAV obrigatório</li>
+        </ul>
+
+        <!-- ===================== P303 — AVE ===================== -->
+        <h3>P303 – Acidente Vascular Encefálico (AVE)</h3>
+
+        <h4>1. O que é AVE?</h4>
+        <p>Interrupção do fluxo sanguíneo cerebral → morte neuronal.</p>
+        <ul>
+          <li>Isquêmico (80%)</li>
+          <li>Hemorrágico (20%)</li>
+        </ul>
+
+        <h4>2. Por que é grave?</h4>
+        <ul>
+          <li>Cérebro tolera pouco tempo sem sangue</li>
+          <li>Tempo é cérebro</li>
+        </ul>
+
+        <h4>3. Suspeita clínica – Teste Cincinnati</h4>
+        <ul>
+          <li>Fala alterada</li>
+          <li>Sorriso assimétrico</li>
+          <li>Fraqueza de braço</li>
+        </ul>
+        <p>1 alteração = suspeita<br />2+ = muito provável</p>
+
+        <h4>4. Sinais e sintomas</h4>
+        <ul>
+          <li>Déficit motor súbito</li>
+          <li>Desvio de rima</li>
+          <li>Alteração da fala</li>
+          <li>Alteração visual súbita</li>
+          <li>Confusão</li>
+          <li>Convulsão</li>
+          <li>Cefaleia intensa (hemorrágico)</li>
+          <li>Alteração de consciência</li>
+        </ul>
+
+        <h4>5. Avaliação Primária</h4>
+        <ul>
+          <li>VA permeável</li>
+          <li>Oxigênio se SpO₂ &lt; 94%</li>
+          <li>Não hiperventilar</li>
+          <li>Decúbito lateral se vômitos</li>
+          <li>Monitorar PA</li>
+        </ul>
+
+        <h4>6. Avaliação Secundária</h4>
+        <h4>SAMPUN</h4>
+        <ul>
+          <li>Doenças prévias: fibrilação atrial?</li>
+          <li>Uso de anticoagulantes?</li>
+          <li>Início dos sintomas: dado mais importante</li>
+        </ul>
+
+        <h4>Cincinnati</h4>
+        <p>Registrar achados.</p>
+
+        <h4>7. Conduta do Básico</h4>
+        <ul>
+          <li>Cabeceira 30°</li>
+          <li>Oxigênio se necessário</li>
+          <li>Controle de glicemia</li>
+          <li>Solicitar SAV</li>
+          <li>Transporte imediato</li>
+        </ul>
+
+        <h4>8. O que NÃO fazer</h4>
+        <ul>
+          <li>Não administrar AAS</li>
+          <li>Não administrar glicose</li>
+          <li>Não reduzir PA</li>
+          <li>Não atrasar transporte</li>
+        </ul>
+
+        <h4>9. Destinação</h4>
+        <p>Hospital com tomografia 24h.</p>
+
+        <h4>Essência pra prova</h4>
+        <ul>
+          <li>Cincinnati alterado</li>
+          <li>Início dos sintomas é ouro</li>
+          <li>Cabeceira 30°</li>
+          <li>Oxigênio se necessário</li>
+          <li>Solicitar SAV</li>
+          <li>Transporte imediato</li>
+        </ul>
+
+        <!-- ===================== P304 — CRISE CONVULSIVA ===================== -->
+        <h3>P304 – Crise Convulsiva</h3>
+
+        <h4>1. O que é?</h4>
+        <p>
+          Descarga elétrica anormal do cérebro → perda de consciência e
+          movimentos involuntários.
+        </p>
+
+        <h4>2. Tipos importantes</h4>
+        <ul>
+          <li>Tônico-clônica generalizada</li>
+          <li>Ausência</li>
+          <li>Parcial/Focal</li>
+          <li>Estado de mal epiléptico (&gt; 5 min ou crises repetidas)</li>
+        </ul>
+
+        <h4>3. Identificação no APH</h4>
+        <ul>
+          <li>Perda de consciência</li>
+          <li>Rigidez + abalos</li>
+          <li>Salivação</li>
+          <li>Cianose</li>
+          <li>Mordedura de língua</li>
+          <li>Incontinência</li>
+          <li>Pós-ictal</li>
+        </ul>
+
+        <h4>4. O que fazer DURANTE a crise</h4>
+        <p><strong>Princípio: proteger sem conter</strong></p>
+        <ul>
+          <li>Afastar objetos</li>
+          <li>Não colocar nada na boca</li>
+          <li>Não segurar braços ou pernas</li>
+        </ul>
+
+        <h4>5. O que fazer APÓS a crise</h4>
+        <ul>
+          <li>Avaliar VA</li>
+          <li>Aspirar secreções</li>
+          <li>Oxigênio se SpO₂ &lt; 94%</li>
+          <li>Pesquisar TCE</li>
+          <li>Glicemia capilar</li>
+          <li>SAMPUN</li>
+          <li>Identificar causas: febre, drogas, hipoglicemia, trauma</li>
+        </ul>
+
+        <h4>6. Quando solicitar SAV</h4>
+        <ul>
+          <li>Crise &gt; 5 min</li>
+          <li>Duas crises sem recuperação</li>
+          <li>Trauma associado</li>
+          <li>Primeira convulsão</li>
+          <li>Gestante</li>
+          <li>Criança &lt; 6 meses</li>
+          <li>Não recobra consciência</li>
+        </ul>
+
+        <h4>7. Destinação</h4>
+        <p>Unidade com neurologia; estado de mal → UTI.</p>
+
+        <h4>Essência pra prova</h4>
+        <ul>
+          <li>Não segurar</li>
+          <li>Não colocar objetos na boca</li>
+          <li>Lateralizar após crise</li>
+          <li>&gt; 5 min = estado de mal</li>
+          <li>Oxigênio se necessário</li>
+          <li>Glicemia sempre</li>
+          <li>SAV nas indicações</li>
+        </ul>
+      </section>
+
+      <!-- ===================== MÓDULO 400 — EMERGÊNCIAS OBSTÉTRICAS ===================== -->
+      <section class="card" id="mod400">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 400 – EMERGÊNCIAS OBSTÉTRICAS</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P401 ===================== -->
+        <h3>P401 – Assistência ao Parto (exceto manobras 7.2)</h3>
+
+        <h4>1. Entendimento básico do parto</h4>
+        <p>Parto ocorre em 3 períodos:</p>
+
+        <h4>1º Período – Dilatação</h4>
+        <ul>
+          <li>Início das contrações regulares</li>
+          <li>Até dilatação completa (10 cm)</li>
+          <li>Contrações ficam mais fortes e frequentes</li>
+        </ul>
+
+        <h4>2º Período – Expulsão</h4>
+        <ul>
+          <li>Cabeça já encaixada</li>
+          <li>Gestante faz força</li>
+          <li>Ocorre o nascimento</li>
+        </ul>
+
+        <h4>3º Período – Secundamento</h4>
+        <ul>
+          <li>Descolamento e saída da placenta</li>
+          <li>Pode levar 5–30 minutos</li>
+        </ul>
+
+        <h4>2. Como identificar trabalho de parto no APH</h4>
+        <ul>
+          <li>
+            <strong>Intervalo das contrações:</strong> &lt; 5 min → provável
+            fase ativa
+          </li>
+          <li><strong>Bolsa rompeu?</strong> notar cor, cheiro, mecônio</li>
+          <li>
+            <strong>Vontade de evacuar / empurrar:</strong> indica expulsivo
+          </li>
+          <li><strong>Já pariu antes?</strong> multíparas evoluem rápido</li>
+          <li><strong>Sangramento?</strong></li>
+          <li><strong>Cabeça visível?</strong> se sim → nascimento iminente</li>
+        </ul>
+
+        <h4>3. Quando NÃO transportar (parto iminente)</h4>
+        <ul>
+          <li>Cabeça visível no introito vaginal</li>
+          <li>Gestante fazendo força involuntária</li>
+          <li>Contrações &lt; 2 min por + de 1 hora</li>
+          <li>Multípara em progressão rápida</li>
+          <li>Vontade intensa de evacuar</li>
+          <li>"Tá nascendo!" – relato materno</li>
+        </ul>
+        <p>
+          <strong
+            >Se houver qualquer item → preparar parto imediatamente.</strong
+          >
+        </p>
+
+        <h4>4. Materiais necessários</h4>
+        <ul>
+          <li>Luvas estéreis</li>
+          <li>Compressas</li>
+          <li>Clamps ou fitas para cordão</li>
+          <li>Saco plástico ou roupa para aquecer RN</li>
+          <li>Oxigênio</li>
+          <li>Material de aspiração (se disponível)</li>
+        </ul>
+
+        <h4>5. Assistência ao nascimento</h4>
+
+        <h4>A. Apoiar cabeça e controlar saída</h4>
+        <ul>
+          <li>Deixar nascer devagar</li>
+          <li>NÃO puxar</li>
+          <li>Apoiar suavemente o períneo e a cabeça</li>
+        </ul>
+
+        <h4>B. Verificar circular de cordão</h4>
+        <ul>
+          <li>Se frouxa → deslizar por cima da cabeça</li>
+          <li>Se apertada → evitar cortar no APH (exceto risco extremo)</li>
+        </ul>
+
+        <h4>C. Após saída da cabeça</h4>
+        <ul>
+          <li>Aguardar rotação natural</li>
+          <li>O corpo nasce logo após a rotação</li>
+        </ul>
+
+        <h4>D. Receber o bebê</h4>
+        <ul>
+          <li>Segurar firmemente (RN escorrega muito)</li>
+          <li>Colocar pele a pele com a mãe</li>
+          <li>Secar rapidamente</li>
+          <li>Manter aquecido</li>
+        </ul>
+
+        <h4>6. Cuidados imediatos ao RN</h4>
+        <h4>1. Secar e aquecer</h4>
+        <ul>
+          <li>Estimula respiração</li>
+          <li>Previne hipotermia</li>
+        </ul>
+
+        <h4>2. Posicionar via aérea</h4>
+        <ul>
+          <li>Posição neutra</li>
+          <li>Aspirar apenas se secreção impedir ventilação</li>
+        </ul>
+
+        <h4>3. Avaliar respiração</h4>
+        <ul>
+          <li>Se não chorar → estimular dorso dos pés</li>
+          <li>Se não respirar → iniciar ventilação BVM</li>
+        </ul>
+
+        <h4>4. Avaliar coloração e tônus</h4>
+        <p>
+          Apgar não é prioridade no APH, mas pode ser registrado após
+          estabilização.
+        </p>
+
+        <h4>7. Cordão umbilical</h4>
+        <ul>
+          <li>Clamp após parar de pulsar</li>
+          <li>1º clamp a 10 cm do RN</li>
+          <li>2º clamp a 15 cm</li>
+          <li>Cortar entre os clamps</li>
+        </ul>
+
+        <h4>8. Secundamento da placenta</h4>
+        <p>Aguardar sinais:</p>
+        <ul>
+          <li>Jato de sangue</li>
+          <li>Alongamento do cordão</li>
+          <li>Elevação do útero</li>
+        </ul>
+        <p><strong>Nunca puxar o cordão.</strong></p>
+
+        <h4>9. Cuidados maternos pós-parto</h4>
+        <ul>
+          <li>Massagem uterina</li>
+          <li>Monitorar sangramento</li>
+          <li>Pele a pele com o RN</li>
+          <li>Manter ambos aquecidos</li>
+          <li>Monitorar PA e consciência</li>
+        </ul>
+
+        <h4>10. Quando transportar imediatamente</h4>
+        <ul>
+          <li>Prolapso de cordão</li>
+          <li>Apresentação anômala (nádegas, face, membro)</li>
+          <li>Parto gemelar</li>
+          <li>Hemorragia intensa</li>
+          <li>Pré-eclâmpsia / eclâmpsia</li>
+          <li>RPM com febre</li>
+          <li>Sofrimento fetal aparente</li>
+        </ul>
+
+        <h4>Pontos essenciais</h4>
+        <ul>
+          <li>Não puxar bebê</li>
+          <li>Não puxar placenta</li>
+          <li>RN: aquecer e estimular primeiro</li>
+          <li>Aspirar somente se obstrução</li>
+          <li>Cordão: 10 cm e 15 cm</li>
+          <li>Prolapso → transporte imediato</li>
+        </ul>
+
+        <!-- ===================== P402 ===================== -->
+        <h3>P402 – Hemorragia Obstétrica</h3>
+        <p>Emergência com altíssimo risco de morte materna.</p>
+
+        <h4>1. Principais tipos</h4>
+
+        <h4>A) 1º e 2º trimestre</h4>
+        <ul>
+          <li>Aborto</li>
+          <li>Gestação ectópica</li>
+          <li>Doença trofoblástica</li>
+        </ul>
+
+        <h4>B) 3º trimestre</h4>
+        <h4>Placenta Prévia</h4>
+        <ul>
+          <li>Sangramento vermelho vivo</li>
+          <li>Sem dor</li>
+          <li>Início súbito</li>
+          <li>Pode ocorrer após relação sexual</li>
+          <li><strong>NÃO fazer toque vaginal</strong></li>
+          <li><strong>Transporte imediato</strong></li>
+        </ul>
+
+        <h4>Descolamento Prematuro de Placenta (DPP)</h4>
+        <ul>
+          <li>Sangramento escuro</li>
+          <li>Dor abdominal intensa</li>
+          <li>Útero hipertônico e rígido</li>
+          <li>Sofrimento fetal</li>
+          <li><strong>Possível choque sem sangramento externo</strong></li>
+        </ul>
+
+        <h4>2. Quadro clínico geral</h4>
+        <ul>
+          <li>Sangramento vaginal</li>
+          <li>Taquicardia</li>
+          <li>Hipotensão</li>
+          <li>Palidez</li>
+          <li>Sudorese</li>
+          <li>Dor abdominal</li>
+          <li>Tontura</li>
+        </ul>
+
+        <h4>3. Conduta do Básico</h4>
+        <ul>
+          <li>Avaliar sinais de choque</li>
+          <li>Oxigênio 4–6 L/min</li>
+          <li>Decúbito lateral esquerdo</li>
+          <li>NÃO realizar toque vaginal</li>
+          <li>Observar quantidade de sangramento</li>
+          <li>Evitar palpação vigorosa</li>
+          <li>Proteger períneo com compressas sem introduzir nada</li>
+        </ul>
+
+        <h4>4. Situações específicas</h4>
+
+        <h4>Hemorragia pós-parto</h4>
+        <ul>
+          <li>Útero atônico → causa mais comum</li>
+          <li>Útero flácido + sangramento intenso</li>
+          <li>Conduta: massagem, compressas, transporte rápido</li>
+        </ul>
+
+        <h4>Rotura uterina</h4>
+        <ul>
+          <li>Dor súbita intensa</li>
+          <li>Sangramento + choque</li>
+          <li>Palpação de partes fetais fora do útero</li>
+          <li>Emergência extrema</li>
+        </ul>
+
+        <h4>5. Essência pra prova</h4>
+        <ul>
+          <li>Placenta prévia: sangramento sem dor</li>
+          <li>DPP: dor intensa + sangue escuro</li>
+          <li>NÃO fazer toque vaginal</li>
+          <li>Decúbito lateral esquerdo</li>
+          <li>O₂ se necessário</li>
+          <li>Massagem uterina no pós-parto</li>
+        </ul>
+
+        <!-- ===================== P403 ===================== -->
+        <h3>P403 – Distúrbios Hipertensivos (Pré-eclâmpsia e Eclâmpsia)</h3>
+
+        <h4>1. O que são?</h4>
+        <h4>Pré-eclâmpsia</h4>
+        <p>PA ≥ 140/90 + sinais de gravidade:</p>
+        <ul>
+          <li>Cefaleia</li>
+          <li>Edema</li>
+          <li>Zumbidos</li>
+          <li>Visão borrada</li>
+          <li>Dor em “barra” no epigástrio</li>
+          <li>Proteinúria (diagnóstico hospitalar)</li>
+        </ul>
+
+        <h4>Eclâmpsia</h4>
+        <p>Convulsão em gestante com pré-eclâmpsia. Emergência gravíssima.</p>
+
+        <h4>2. Sinais de alerta máximo</h4>
+        <ul>
+          <li>PA muito elevada</li>
+          <li>Escotomas</li>
+          <li>Forte cefaleia</li>
+          <li>Dor epigástrica</li>
+          <li>Vômitos no 3º tri</li>
+          <li>Edema súbito</li>
+          <li>Alteração de consciência</li>
+          <li>Convulsão</li>
+        </ul>
+
+        <h4>3. Conduta do Básico</h4>
+        <h4>Se convulsão (Eclâmpsia)</h4>
+        <ul>
+          <li>Proteger sem conter</li>
+          <li>Oxigênio</li>
+          <li>Lateralizar</li>
+          <li>Aspirar secreções</li>
+          <li>Nunca administrar anticonvulsivantes</li>
+          <li>Solicitar SAV imediatamente</li>
+        </ul>
+
+        <h4>Se apenas pré-eclâmpsia</h4>
+        <ul>
+          <li>Ambiente calmo</li>
+          <li>Luz baixa</li>
+          <li>Monitorar PA</li>
+          <li>Lateralizar</li>
+          <li>O₂ se SpO₂ &lt; 94%</li>
+        </ul>
+
+        <h4>4. Transporte</h4>
+        <ul>
+          <li>Imediato para maternidade</li>
+          <li>Lateral esquerdo</li>
+          <li>Se convulsão → SAV + UTI</li>
+        </ul>
+
+        <h4>5. Essência pra prova</h4>
+        <ul>
+          <li>Convulsão em gestante = eclâmpsia</li>
+          <li>Oxigênio + lateralização</li>
+          <li>Proteger sem conter</li>
+          <li>Evitar luz forte</li>
+          <li>Dor em barra é sinal clássico</li>
+          <li>PA alta + sintomas neurológicos = risco de convulsão</li>
+          <li>SAV é obrigatório</li>
+        </ul>
+      </section>
+
+      <!-- ===================== MÓDULO 500 ===================== -->
+      <section class="card" id="mod500">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 500 – EMERGÊNCIAS TRAUMÁTICAS</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P501 ===================== -->
+        <h3>P501 – Trauma Cranioencefálico (TCE)</h3>
+
+        <h4>1. O que é TCE?</h4>
+        <p>
+          Alteração estrutural ou fisiológica causada por trauma externo,
+          podendo gerar lesão cerebral primária ou secundária.
+        </p>
+
+        <h4>2. Tipos de Lesão</h4>
+        <h5>Lesões Primárias (ocorrem no momento do impacto):</h5>
+        <ul>
+          <li>Concussão</li>
+          <li>Contusão</li>
+          <li>Hematomas (EDH, ESH, ICH)</li>
+          <li>Lesão axonal difusa</li>
+        </ul>
+
+        <h5>Lesões Secundárias (ocorrem após o trauma):</h5>
+        <ul>
+          <li>Hipóxia</li>
+          <li>Hipotensão</li>
+          <li>Edema cerebral</li>
+        </ul>
+        <p><strong>Prevenir lesões secundárias é o foco do APH.</strong></p>
+
+        <h4>3. Sinais de Gravidade</h4>
+        <ul>
+          <li>Rebaixamento de consciência</li>
+          <li>Pupila dilatada unilateral</li>
+          <li>Vômitos repetidos</li>
+          <li>Convulsão</li>
+          <li>Fraturas expostas de crânio</li>
+          <li>Saída de líquor (otorréia/rinorréia)</li>
+          <li>Déficit motor</li>
+          <li>Piora progressiva do quadro</li>
+        </ul>
+
+        <h4>4. Avaliação do TCE</h4>
+        <ul>
+          <li>ECG (avaliar a cada 5 min se grave)</li>
+          <li>Pupilas</li>
+          <li>Glicemia</li>
+          <li>Pesquisar trauma associado</li>
+          <li>Sinais vitais</li>
+          <li>RMC (restrição de movimento da coluna)</li>
+        </ul>
+
+        <h4>5. Condutas Essenciais</h4>
+        <ul>
+          <li>Manter via aérea permeável</li>
+          <li>Oxigênio se SpO₂ &lt; 94%</li>
+          <li>Cabeceira 30° (se NÃO houver suspeita de TRM)</li>
+          <li>Controle de hemorragias</li>
+          <li>Lateralizar em caso de vômitos</li>
+          <li>Proteger contra convulsões</li>
+        </ul>
+        <p><strong>Não usar cânula se vômitos intensos.</strong></p>
+        <p><strong>Evitar hiperventilação.</strong></p>
+
+        <h4>6. Decisão de Transporte</h4>
+        <p>LOAD AND GO se houver:</p>
+        <ul>
+          <li>ECG &lt; 15</li>
+          <li>Qualquer sinal de gravidade</li>
+          <li>Vômito persistente</li>
+          <li>Sangramento ativo</li>
+          <li>Alteração pupilar</li>
+        </ul>
+
+        <!-- ===================== P502 ===================== -->
+        <h3>P502 – Trauma Raquimedular (TRM)</h3>
+
+        <h4>1. O que é?</h4>
+        <p>Lesão da medula espinhal causando déficit motor e/ou sensitivo.</p>
+
+        <h4>2. Sinais sugestivos</h4>
+        <ul>
+          <li>Dor na coluna</li>
+          <li>Formigamento</li>
+          <li>Dormência</li>
+          <li>Perda de sensibilidade</li>
+          <li>Paralisia</li>
+          <li>Priapismo</li>
+          <li>Dor ao movimento</li>
+          <li>Deformidade na coluna</li>
+        </ul>
+
+        <h4>3. Quando fazer RMC (muito cobrado)</h4>
+        <ul>
+          <li>Idade ≥ 65</li>
+          <li>Mecanismo de Alta Energia (MAE)</li>
+          <li>Déficit neurológico</li>
+          <li>Dor na linha média</li>
+          <li>Comunicação prejudicada</li>
+          <li>Lesões distratoras</li>
+        </ul>
+
+        <h4>4. Imobilização</h4>
+        <ol>
+          <li>Estabilização manual</li>
+          <li>Colar cervical</li>
+          <li>Maca rígida / colher / vácuo</li>
+          <li>Imobilizador de cabeça</li>
+          <li>Cintos</li>
+        </ol>
+        <p><strong>Tempo máximo na prancha: 30 min.</strong></p>
+
+        <h4>5. Quando NÃO fazer RMC</h4>
+        <ul>
+          <li>Trauma penetrante isolado</li>
+          <li>Ausência de dor e ausência de critérios</li>
+        </ul>
+
+        <h4>6. Transporte</h4>
+        <ul>
+          <li>Prioritário</li>
+          <li>Cabeceira a 0°</li>
+          <li>Evitar movimentos laterais</li>
+        </ul>
+
+        <!-- ===================== P503 ===================== -->
+        <h3>P503 – Trauma Torácico</h3>
+
+        <h4>1. Principais riscos</h4>
+        <ul>
+          <li>Comprometimento respiratório</li>
+          <li>Sangramento interno</li>
+          <li>Lesões fatais</li>
+        </ul>
+
+        <h4>2. Emergências torácicas</h4>
+
+        <h5>Pneumotórax Hipertensivo</h5>
+        <ul>
+          <li>Dispneia intensa</li>
+          <li>Desvio de traqueia</li>
+          <li>Estase jugular</li>
+          <li>Hipotensão</li>
+          <li>Diminuição de MV</li>
+        </ul>
+        <p><strong>No básico: reconhecer e transportar rapidamente.</strong></p>
+
+        <h5>Pneumotórax Aberto</h5>
+        <p>Usar curativo de 3 pontas.</p>
+
+        <h5>Ferimento Penetrante</h5>
+        <p>Não retirar objeto; estabilizar.</p>
+
+        <h5>Hemotórax</h5>
+        <p>Sinais de choque + diminuição de MV → transporte rápido.</p>
+
+        <h5>Tórax Instável</h5>
+        <p>Movimento paradoxal; fazer curativo estabilizador.</p>
+
+        <h4>3. Condutas Gerais</h4>
+        <ul>
+          <li>Expor tórax</li>
+          <li>Auscultar</li>
+          <li>Curativo 3 pontas se necessário</li>
+          <li>Oxigênio</li>
+          <li>Procurar empalamento</li>
+          <li>RMC se trauma alto</li>
+        </ul>
+
+        <h4>4. Load and Go se:</h4>
+        <ul>
+          <li>Insuficiência respiratória</li>
+          <li>Saturação baixa</li>
+          <li>Má perfusão</li>
+          <li>Ferimento penetrante</li>
+          <li>Pneumotórax suspeito</li>
+        </ul>
+
+        <!-- ===================== P504 ===================== -->
+        <h3>P504 – Trauma Abdominal</h3>
+
+        <h4>1. Tipos</h4>
+        <h5>A) Fechado</h5>
+        <ul>
+          <li>Batida de volante</li>
+          <li>Queda</li>
+          <li>Chute/soco</li>
+          <li>Compressão</li>
+        </ul>
+
+        <h5>B) Aberto</h5>
+        <ul>
+          <li>Arma branca</li>
+          <li>Arma de fogo</li>
+        </ul>
+
+        <h4>2. Sinais de Gravidade</h4>
+        <ul>
+          <li>Dor intensa</li>
+          <li>Rigidez</li>
+          <li>Equimoses</li>
+          <li>Choque</li>
+          <li>Evisceração</li>
+        </ul>
+
+        <h4>3. Condutas</h4>
+        <ul>
+          <li>Não reinserir vísceras</li>
+          <li>Cobrir evisceração com compressa úmida</li>
+          <li>Oxigênio</li>
+          <li>Evitar alimentos</li>
+        </ul>
+
+        <h4>4. Transporte</h4>
+        <p>Sempre rápido.</p>
+
+        <!-- ===================== P505 ===================== -->
+        <h3>P505 – Trauma Pélvico e Genital</h3>
+
+        <h4>1. Trauma Pélvico</h4>
+        <ul>
+          <li>Dor pélvica</li>
+          <li>Instabilidade</li>
+          <li>Hematomas</li>
+          <li>Sangramento uretral</li>
+          <li>Pé encurtado/rotado</li>
+        </ul>
+
+        <h5>Condutas</h5>
+        <ul>
+          <li>Apenas uma palpação</li>
+          <li>Enfaixar pelve</li>
+          <li>Oxigênio</li>
+          <li>Load and Go</li>
+        </ul>
+
+        <h4>2. Trauma Genital</h4>
+        <ul>
+          <li>Controle de sangramento</li>
+          <li>Não inserir gazes</li>
+          <li>Preservar intimidade</li>
+        </ul>
+
+        <!-- ===================== P506 ===================== -->
+        <h3>P506 – Choque Elétrico</h3>
+
+        <h4>1. Tipos</h4>
+        <ul>
+          <li>Baixa tensão</li>
+          <li>Alta tensão</li>
+          <li>Arco voltaico</li>
+          <li>Relâmpago</li>
+        </ul>
+
+        <h4>2. Segurança</h4>
+        <p><strong>Não tocar a vítima antes de desligar a fonte.</strong></p>
+
+        <h4>3. Possíveis efeitos</h4>
+        <ul>
+          <li>PCR imediata</li>
+          <li>Arritmias</li>
+          <li>Queimaduras</li>
+          <li>Trauma secundário</li>
+        </ul>
+
+        <h4>4. Condutas</h4>
+        <ul>
+          <li>VA + respiração</li>
+          <li>RCP se necessário</li>
+          <li>Oxigênio</li>
+          <li>Avaliar queimaduras</li>
+        </ul>
+
+        <h4>5. Relâmpago</h4>
+        <p>Priorizar vítimas em PCR.</p>
+
+        <!-- ===================== P507 ===================== -->
+        <h3>P507 – Ferimentos Específicos</h3>
+
+        <h4>1. Arma Branca</h4>
+        <ul>
+          <li>Não remover objeto</li>
+          <li>Estabilizar</li>
+        </ul>
+
+        <h4>2. Arma de Fogo</h4>
+        <ul>
+          <li>Cobrir entrada e saída</li>
+          <li>Não explorar</li>
+        </ul>
+
+        <h4>3. Mordedura de Animal</h4>
+        <ul>
+          <li>Lavar com água</li>
+          <li>Cobrir</li>
+          <li>Comunicar zoonoses</li>
+        </ul>
+
+        <h4>4. Ferimentos Contaminados</h4>
+        <ul>
+          <li>Cobertura limpa</li>
+          <li>Não remover corpos estranhos</li>
+        </ul>
+
+        <!-- ===================== P508 ===================== -->
+        <h3>P508 – Hemorragia</h3>
+
+        <h4>1. Tipos</h4>
+        <ul>
+          <li>Arterial</li>
+          <li>Venosa</li>
+          <li>Capilar</li>
+          <li>Interna</li>
+        </ul>
+
+        <h4>2. Sinais de Choque</h4>
+        <ul>
+          <li>Taquicardia</li>
+          <li>Pele fria</li>
+          <li>TEC &gt; 2s</li>
+          <li>Hipotensão</li>
+          <li>Confusão</li>
+        </ul>
+
+        <h4>3. Controle de Hemorragias</h4>
+        <ol>
+          <li>Compressão direta</li>
+          <li>Elevação</li>
+          <li>Curativo compressivo</li>
+          <li>Torniquete</li>
+        </ol>
+
+        <h4>Torniquete – Padrão</h4>
+        <ul>
+          <li>5–7 cm acima do ferimento</li>
+          <li>Nunca sobre articulação</li>
+          <li>Não soltar no APH</li>
+        </ul>
+
+        <!-- ===================== P509 ===================== -->
+        <h3>P509 – Trauma Musculoesquelético</h3>
+
+        <h4>1. Tipos</h4>
+        <ul>
+          <li>Entorse</li>
+          <li>Luxação</li>
+          <li>Fratura fechada</li>
+          <li>Fratura exposta</li>
+          <li>Amputação</li>
+        </ul>
+
+        <h4>2. Sinais de Fratura</h4>
+        <ul>
+          <li>Dor</li>
+          <li>Deformidade</li>
+          <li>Edema</li>
+          <li>Crepitação</li>
+          <li>Incapacidade</li>
+        </ul>
+
+        <h4>3. Imobilização</h4>
+        <p><strong>Imobilizar articulação acima e abaixo.</strong></p>
+
+        <h4>4. Fratura exposta</h4>
+        <ul>
+          <li>Cobrir com gaze estéril</li>
+          <li>Não reintroduzir osso</li>
+        </ul>
+
+        <h4>5. Amputação</h4>
+        <ul>
+          <li>Controlar hemorragia</li>
+          <li>Torniquete se necessário</li>
+          <li>Parte amputada em gaze → saco → gelo (sem contato direto)</li>
+        </ul>
+
+        <!-- ===================== P510 ===================== -->
+        <h3>P510 – Lesões na Cabeça e Pescoço</h3>
+
+        <h4>1. Lesões Críticas</h4>
+        <ul>
+          <li>Sangramento intenso em face</li>
+          <li>Fratura de mandíbula</li>
+          <li>Ferimento penetrante de pescoço</li>
+          <li>Hematoma cervical</li>
+          <li>Enfisema subcutâneo</li>
+        </ul>
+
+        <h4>2. Condutas</h4>
+        <ul>
+          <li>Via aérea sem hiperextensão</li>
+          <li>Controle de sangramento</li>
+          <li>Não retirar objetos</li>
+          <li>RMC se suspeita de TRM</li>
+        </ul>
+
+        <!-- ===================== P511 ===================== -->
+        <h3>P511 – Queimaduras</h3>
+
+        <h4>1. Classificação por Profundidade</h4>
+        <h5>1º grau:</h5>
+        <ul>
+          <li>Eritema</li>
+          <li>Dor</li>
+          <li>Sem bolhas</li>
+        </ul>
+
+        <h5>2º grau:</h5>
+        <ul>
+          <li>Bolhas</li>
+          <li>Dor intensa</li>
+          <li>Hiperemia</li>
+        </ul>
+
+        <h5>3º grau:</h5>
+        <ul>
+          <li>Área seca</li>
+          <li>Sem dor</li>
+          <li>Destruição total da pele</li>
+        </ul>
+
+        <h4>2. Extensão – Regra dos 9</h4>
+        <ul>
+          <li>Cabeça: 9%</li>
+          <li>Tronco anterior: 18%</li>
+          <li>Tronco posterior: 18%</li>
+          <li>Cada braço: 9%</li>
+          <li>Cada perna: 18%</li>
+          <li>Genitália: 1%</li>
+        </ul>
+
+        <h4>3. Critérios de Gravidade</h4>
+        <ul>
+          <li>Face, pescoço, mãos, pés, genitália</li>
+          <li>Vias aéreas</li>
+          <li>Queimadura circunferencial</li>
+          <li>&gt; 10% adulto</li>
+          <li>&gt; 5% criança</li>
+          <li>3º grau em qualquer extensão</li>
+        </ul>
+
+        <h4>4. Condutas</h4>
+        <ul>
+          <li>Resfriar com água (até 10 min)</li>
+          <li>Não usar gelo</li>
+          <li>Retirar roupas não aderidas</li>
+          <li>Cobrir com compressa seca estéril</li>
+          <li>Oxigênio</li>
+          <li>Avaliar via aérea</li>
+        </ul>
+
+        <h4>5. Queimadura Inalatória</h4>
+        <ul>
+          <li>Rouquidão</li>
+          <li>Fuligem</li>
+          <li>Narina chamuscada</li>
+          <li>Estridor</li>
+        </ul>
+      </section>
+
+      <!-- ===================== MÓDULO 600 ===================== -->
+      <section class="card" id="mod600">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 600 — Choque Circulatório e Emergências Ambientais</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P601 ===================== -->
+        <h3>P601 — Choque Circulatório</h3>
+
+        <h4>1) Definição</h4>
+        <p>
+          Choque = hipoperfusão tecidual generalizada → falta de oxigenação
+          celular → prejuízo orgânico.
+        </p>
+
+        <h4>2) Principais tipos</h4>
+        <ul>
+          <li>Hipovolêmico (mais comum no trauma — perda de sangue/fluido)</li>
+          <li>Cardiogênico (falha de bomba — IAM extenso, arritmia grave)</li>
+          <li>
+            Distributivo (septicemia, anafilaxia — vasodilatação/perda de tônus)
+          </li>
+          <li>
+            Obstrutivo (tamponamento cardíaco, pneumotórax hipertensivo, TEP)
+          </li>
+          <li>Metabólico / mistos (piora por causas combinadas)</li>
+        </ul>
+
+        <h4>3) Sinais e sintomas</h4>
+        <ul>
+          <li>Taquicardia inicial → bradicardia em choque avançado</li>
+          <li>PA sistólica baixa (PAS &lt; 90–100 mmHg)</li>
+          <li>Pele fria/pálida/pegajosa ou quente/avívida (séptico)</li>
+          <li>TEC &gt; 2s</li>
+          <li>Débito urinário diminuído</li>
+          <li>Confusão/agitação</li>
+          <li>Redução do nível de consciência</li>
+          <li>Taquipneia, hipoxemia</li>
+        </ul>
+
+        <h4>4) Identificação e condutas iniciais</h4>
+        <ol>
+          <li>Segurança + XABCDE</li>
+          <li>Controlar hemorragias (compressão, curativo, torniquete)</li>
+          <li>Oxigênio suplementar conforme P704</li>
+          <li>
+            Acesso IV/IO + reposição conforme tipo:
+            <ul>
+              <li>Hipovolêmico: reposição + controle de sangramento</li>
+              <li>Cardiogênico: cautela com fluidos</li>
+              <li>Anafilaxia: adrenalina IM imediata</li>
+              <li>Séptico: O₂ + acesso + volume conforme resposta</li>
+            </ul>
+          </li>
+          <li>Elevar membros inferiores (choque clínico)</li>
+          <li>Aquecer o paciente</li>
+          <li>
+            Identificar causas obstrutivas (tamponamento, pneumo hipertensivo,
+            TEP)
+          </li>
+          <li>Monitorar continuamente sinais vitais</li>
+        </ol>
+
+        <h4>5) Critérios Load and Go</h4>
+        <ul>
+          <li>Instabilidade hemodinâmica</li>
+          <li>Hemorragia maciça não controlada</li>
+          <li>Tamponamento ou pneumo hipertensivo</li>
+          <li>TCE grave com choque</li>
+          <li>Necessidade de cirurgia imediata</li>
+        </ul>
+
+        <h4>6) Pontos práticos</h4>
+        <ul>
+          <li>Hipovolêmico + trauma → controlar sangramento primeiro</li>
+          <li>Não hiperhidratar cardiogênico</li>
+          <li>Anafilaxia → adrenalina IM</li>
+          <li>Elevar membros é medida temporária</li>
+        </ul>
+
+        <!-- ===================== P602 ===================== -->
+        <h3>P602 — Afogamento</h3>
+
+        <h4>1) Definição</h4>
+        <p>
+          Afogamento = síndrome causada por submersão/imersão que resulta em
+          hipóxia por entrada de água nas vias aéreas.
+        </p>
+
+        <h4>2) Prioridades no resgate</h4>
+        <ol>
+          <li>Segurança da cena</li>
+          <li>
+            Retirar da água com segurança e proteção da coluna se necessário
+          </li>
+          <li>Avaliar consciência e respiração imediatamente</li>
+        </ol>
+
+        <h4>3) Atendimento imediato</h4>
+        <ul>
+          <li>Se não respira ou sem pulso → PCR → iniciar SBV</li>
+          <li>Se respira com desconforto → O₂ conforme P704</li>
+          <li>Aspiração → ventilar e tratar insuficiência respiratória</li>
+          <li>Hipotermia → aquecer, UR 24–28°C, manta térmica</li>
+          <li>Checar glicemia (hipoglicemia pode simular rebaixamento)</li>
+          <li>Em PCR → não interromper RCP; usar DEA</li>
+          <li>
+            Vítima de hipotermia não pode ser declarada morta até reaquecida
+          </li>
+        </ul>
+
+        <h4>4) Transporte</h4>
+        <ul>
+          <li>Desconforto respiratório</li>
+          <li>Hipoxemia</li>
+          <li>Rebaixamento de consciência</li>
+          <li>Necessidade de ventilação</li>
+        </ul>
+
+        <h4>5) Pontos práticos</h4>
+        <ul>
+          <li>PCR por afogamento → RCP + DEA</li>
+          <li>“Não morto até aquecido”</li>
+          <li>Suspeitar de edema pulmonar pós-resgate</li>
+        </ul>
+
+        <!-- ===================== P604 ===================== -->
+        <h3>P604 — Animais Peçonhentos</h3>
+
+        <h4>1) Tipos de apresentação</h4>
+        <ul>
+          <li>
+            <strong>Efeitos locais:</strong> dor, edema, necrose, inflamação
+          </li>
+          <li>
+            <strong>Efeitos sistêmicos:</strong>
+            <ul>
+              <li>Coagulação alterada</li>
+              <li>Neuroparalisia</li>
+              <li>Anafilaxia</li>
+              <li>Sinais neurológicos</li>
+              <li>Efeitos cardiorrespiratórios</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>2) Avaliação inicial</h4>
+        <ul>
+          <li>Identificar animal (foto, descrição)</li>
+          <li>Avaliar local da picada e marcar horário</li>
+          <li>Sinais vitais e nível de consciência</li>
+          <li>Dispneia, sialorreia, alteração de visão/fala</li>
+          <li>Sinais de sangramento sistêmico</li>
+        </ul>
+
+        <h4>3) Condutas imediatas</h4>
+        <ul>
+          <li>Imobilizar membro afetado</li>
+          <li>Manter paciente em repouso</li>
+          <li>Remover anéis, pulseiras, calçados</li>
+          <li>Limpar local com água e sabão</li>
+          <li>Marcar perímetro do edema com horário</li>
+          <li>Oxigênio conforme gravidade</li>
+          <li>Evitar torniquete, cortes, sucção, gelo</li>
+          <li>
+            Solicitar antiveneno se houver:
+            <ul>
+              <li>Coagulopatia</li>
+              <li>Neuroparalisia</li>
+              <li>Choque</li>
+              <li>Progressão rápida do edema</li>
+              <li>Crianças, gestantes, idosos</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>4) Indicações de antiveneno</h4>
+        <ul>
+          <li>Sangramentos/incoagulabilidade</li>
+          <li>Déficits neurológicos</li>
+          <li>Edema que progride rapidamente</li>
+          <li>Sinais de choque</li>
+          <li>Pacientes de risco</li>
+        </ul>
+
+        <h4>5) Observação e transporte</h4>
+        <ul>
+          <li>Observe mesmo sem sinais</li>
+          <li>Se sinais sistêmicos → transporte urgente</li>
+          <li>Anotar horário da picada e evolução</li>
+        </ul>
+
+        <h4>6) Pontos práticos</h4>
+        <ul>
+          <li>Imobilizar e transportar</li>
+          <li>Marcar edema</li>
+          <li>Remover joias</li>
+          <li>Não cortar, sugar ou usar gelo</li>
+          <li>Antiveneno para sinais sistêmicos</li>
+        </ul>
+
+        <!-- ===================== Resumo Rápido ===================== -->
+        <h3>Resumo Rápido — O que cai na prova</h3>
+        <ul>
+          <li>
+            Choque: diferenciar tipos; controlar hemorragia; não hiperhidratar
+            cardiogênico
+          </li>
+          <li>Afogamento: RCP + DEA; aquecer; “não morto até aquecido”</li>
+          <li>
+            Peçonhentos: imobilizar, marcar edema, antiveneno para sinais
+            sistêmicos
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===================== MÓDULO 700 ===================== -->
+      <section class="card" id="mod700">
+        <div style="justify-content: space-between; display: flex">
+          <h2>MÓDULO 700 — Protocolos Gerais</h2>
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+
+        <!-- ===================== P701 ===================== -->
+        <h3>P701 — Isolamento de Substâncias Corporais</h3>
+
+        <h4>1) Princípio geral</h4>
+        <p>
+          Tratar TODAS as secreções como potencialmente contaminadas. É o
+          padrão: Precauções Universais.
+        </p>
+
+        <h4>2) Substâncias corporais de risco</h4>
+        <ul>
+          <li>Sangue</li>
+          <li>Vômito</li>
+          <li>Urina</li>
+          <li>Fezes</li>
+          <li>Saliva</li>
+          <li>Suor</li>
+          <li>Lágrimas</li>
+          <li>Fluido amniótico</li>
+          <li>Na prática: tudo.</li>
+        </ul>
+
+        <h4>3) EPIs obrigatórios</h4>
+        <ul>
+          <li>Luvas</li>
+          <li>Óculos de proteção</li>
+          <li>Máscara</li>
+          <li>Avental impermeável (quando houver risco de respingo)</li>
+        </ul>
+
+        <h4>4) Condutas</h4>
+        <ul>
+          <li>Lavar mãos antes e depois</li>
+          <li>Descartar perfurocortantes em recipiente apropriado</li>
+          <li>Higienizar superfícies contaminadas</li>
+          <li>
+            Em exposição acidental: lavar área + comunicar + atendimento médico
+          </li>
+        </ul>
+
+        <h5>O que cai na prova:</h5>
+        <ul>
+          <li>Todo contato com secreção = usar EPI</li>
+          <li>Perfurocortante: NÃO reencapar — descartar imediatamente</li>
+        </ul>
+
+        <!-- ===================== P702 ===================== -->
+        <h3>P702 — Triagem Pré-Hospitalar</h3>
+
+        <h4>1) Objetivo</h4>
+        <p>
+          Classificar rapidamente vítimas em cenários com múltiplos envolvidos.
+        </p>
+
+        <h4>2) Métodos mais usados</h4>
+        <p>START / SALVAR (adultos) e JumpSTART (pediátrico).</p>
+
+        <h4>3) START — Resumo</h4>
+        <p>
+          Ordem de avaliação:
+          <strong>Respiração → Perfusão → Consciência</strong>
+        </p>
+
+        <h5>Etapas:</h5>
+        <ol>
+          <li>
+            <strong>Anda?</strong>
+            <ul>
+              <li>Sim → VERDE</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Não anda → respira?</strong>
+            <ul>
+              <li>Não → abrir VA</li>
+              <li>Se iniciar respiração → VERMELHO</li>
+              <li>Se não → PRETO</li>
+            </ul>
+          </li>
+          <li><strong>FR ≥ 30?</strong> → VERMELHO</li>
+          <li><strong>TEC > 2s ou pulso ausente?</strong> → VERMELHO</li>
+          <li>
+            <strong>Obedece comandos?</strong>
+            <ul>
+              <li>Não → VERMELHO</li>
+              <li>Sim → AMARELO</li>
+            </ul>
+          </li>
+        </ol>
+
+        <h4>4) Cores</h4>
+        <ul>
+          <li><strong>VERMELHO</strong> — imediato</li>
+          <li><strong>AMARELO</strong> — urgente</li>
+          <li><strong>VERDE</strong> — caminhante</li>
+          <li><strong>PRETO</strong> — óbito / inviável</li>
+        </ul>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>START = Respiração → Perfusão → Consciência</li>
+          <li>Quem anda = verde</li>
+        </ul>
+
+        <!-- ===================== P703 ===================== -->
+        <h3>P703 — Oximetria de Pulso</h3>
+
+        <h4>1) O que é?</h4>
+        <p>Medida da saturação periférica de oxigênio (SpO₂).</p>
+
+        <h4>2) Valores</h4>
+        <ul>
+          <li>Normal: ≥ 94%</li>
+          <li>Queda importante: &lt; 94%</li>
+          <li>DPOC: alvo 88–92%</li>
+        </ul>
+
+        <h4>3) Fatores que prejudicam leitura</h4>
+        <ul>
+          <li>Esmalte escuro</li>
+          <li>Hipoperfusão</li>
+          <li>Movimentação</li>
+          <li>Luz intensa</li>
+          <li>Frio/vasoconstrição</li>
+          <li>Intoxicação por CO → saturação falsamente normal</li>
+        </ul>
+
+        <h4>4) Não usar isoladamente</h4>
+        <p>
+          Avaliação sempre deve incluir exame clínico + respiratório + sinais
+          vitais.
+        </p>
+
+        <h5>Pegadinha:</h5>
+        <p>Saturação normal NÃO exclui intoxicação por CO.</p>
+
+        <!-- ===================== P704 ===================== -->
+        <h3>P704 — Administração de Oxigênio</h3>
+
+        <h4>1) Indicações</h4>
+        <ul>
+          <li>Saturação &lt; 94%</li>
+          <li>Insuficiência respiratória</li>
+          <li>Trauma grave</li>
+          <li>Intoxicação</li>
+          <li>Choque</li>
+          <li>Gestante com desconforto</li>
+          <li>Queimadura de face / suspeita de via aérea</li>
+        </ul>
+
+        <h4>2) Dispositivos</h4>
+        <ul>
+          <li>Cânula nasal: 1–6 L/min (~44%)</li>
+          <li>Máscara simples: 6–10 L/min (~50%)</li>
+          <li>Máscara com reservatório (NRM): 10–15 L/min (até 95%)</li>
+          <li>Ventilação BVM: PCR ou agonia</li>
+        </ul>
+
+        <h4>3) Alvos</h4>
+        <ul>
+          <li>Normal: 94–98%</li>
+          <li>DPOC: 88–92%</li>
+        </ul>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>NRM = hipóxia grave / emergência</li>
+          <li>DPOC não deve ser hiperoxigenado</li>
+        </ul>
+
+        <!-- ===================== P706 ===================== -->
+        <h3>P706 — Aspiração</h3>
+
+        <h4>1) Objetivo</h4>
+        <p>Remover secreções das vias aéreas.</p>
+
+        <h4>2) Indicações</h4>
+        <ul>
+          <li>Estertores grosseiros</li>
+          <li>Vômitos / secreção abundante</li>
+          <li>Sangue na via aérea</li>
+          <li>Engasgo com secreção</li>
+        </ul>
+
+        <h4>3) Procedimento</h4>
+        <ul>
+          <li>Usar sonda rígida (Yankauer)</li>
+          <li>Aspirar por no máximo 10–15 segundos</li>
+          <li>Introduzir sem aspirar → aspirar ao retirar</li>
+          <li>Oxigênio antes e depois</li>
+          <li>Cuidado com bradicardia vagal</li>
+        </ul>
+
+        <h4>4) Contraindicação relativa</h4>
+        <p>Sangramento nasal importante (evitar sonda flexível).</p>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>Aspirar sempre AO RETIRAR</li>
+          <li>Tempo máximo: 10–15 segundos</li>
+        </ul>
+
+        <!-- ===================== P707 ===================== -->
+        <h3>P707 — Extração do Paciente</h3>
+
+        <h4>1) Conceito</h4>
+        <p>
+          Remoção da vítima de local perigoso preservando segurança da equipe e
+          da própria vítima.
+        </p>
+
+        <h4>2) Prioridades</h4>
+        <ol>
+          <li>Cena</li>
+          <li>Equipe</li>
+          <li>Vítima</li>
+        </ol>
+
+        <h4>3) Tipos de remoção</h4>
+        <ul>
+          <li>Ordinária — sem risco imediato</li>
+          <li>Emergencial — risco iminente</li>
+        </ul>
+
+        <h4>4) Indicações de extração rápida</h4>
+        <ul>
+          <li>Fogo</li>
+          <li>Risco estrutural</li>
+          <li>Explosivos</li>
+          <li>Veículo instável</li>
+          <li>Vazamento tóxico</li>
+        </ul>
+
+        <h4>5) Técnica clássica</h4>
+        <p>
+          Puxar pela parte superior do tronco (axilas/ombros) mantendo
+          alinhamento cervical.
+        </p>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>Só extrair rápido quando risco ambiental &gt; risco clínico</li>
+          <li>Sempre que possível, avaliar antes de retirar</li>
+        </ul>
+
+        <!-- ===================== P708 ===================== -->
+        <h3>P708 — Direitos do Paciente</h3>
+
+        <h4>1) Princípios</h4>
+        <ul>
+          <li>Autonomia</li>
+          <li>Beneficência</li>
+          <li>Não maleficência</li>
+          <li>Justiça</li>
+        </ul>
+
+        <h4>2) Direitos</h4>
+        <ul>
+          <li>Atendimento respeitoso</li>
+          <li>Receber explicações</li>
+          <li>Recusar atendimento se lúcido</li>
+          <li>Sigilo</li>
+          <li>Acompanhante sempre que possível</li>
+          <li>Transporte adequado</li>
+        </ul>
+
+        <h4>3) Recusa</h4>
+        <ul>
+          <li>Exige capacidade de decisão</li>
+          <li>Explicar riscos</li>
+          <li>Registrar recusa</li>
+          <li>Pode ser revogada a qualquer momento</li>
+        </ul>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>Paciente lúcido pode recusar</li>
+          <li>Recusa deve ser registrada</li>
+        </ul>
+
+        <!-- ===================== P709 ===================== -->
+        <h3>P709 — Presunção de Óbito</h3>
+
+        <h4>1) Declaração</h4>
+        <p>
+          Só pode ser declarada por médico, mas o socorrista reconhece sinais
+          inequívocos.
+        </p>
+
+        <h4>2) Sinais inequívocos</h4>
+        <ul>
+          <li>Rigor mortis</li>
+          <li>Livor mortis</li>
+          <li>Putrefação</li>
+          <li>Decapitação ou destruição incompatível com vida</li>
+        </ul>
+
+        <h4>3) Quando NÃO iniciar RCP</h4>
+        <ul>
+          <li>Rigor mortis</li>
+          <li>Putrefação</li>
+          <li>Lesões incompatíveis com vida</li>
+          <li>Decapitação</li>
+          <li>Cena insegura</li>
+        </ul>
+
+        <h5>Pegadinha:</h5>
+        <p>Hipotermia grave → nunca declarar óbito antes de reaquecimento.</p>
+
+        <!-- ===================== P710 ===================== -->
+        <h3>P710 — Uso do Glicosímetro</h3>
+
+        <h4>1) Por que medir?</h4>
+        <p>
+          Hipoglicemia é causa comum de rebaixamento de consciência e convulsão.
+        </p>
+
+        <h4>2) Valores</h4>
+        <ul>
+          <li>Normal: 70–99 mg/dL</li>
+          <li>Hipoglicemia: &lt; 70 mg/dL</li>
+          <li>Hiperglicemia: &gt; 180–200 mg/dL</li>
+        </ul>
+
+        <h4>3) Indicações</h4>
+        <ul>
+          <li>Rebaixamento de consciência</li>
+          <li>Convulsão</li>
+          <li>Sinais neurológicos</li>
+          <li>Paciente diabético</li>
+          <li>Suspeita de AVE</li>
+        </ul>
+
+        <h4>4) Procedimento</h4>
+        <ul>
+          <li>Higienizar dedo</li>
+          <li>Não usar álcool em gel</li>
+          <li>Puncionar lateral</li>
+          <li>Desprezar primeira gota</li>
+          <li>Encostar tira na gota seguinte</li>
+          <li>Registrar valor</li>
+        </ul>
+
+        <h5>O que cai:</h5>
+        <ul>
+          <li>Sempre medir glicemia em rebaixamento</li>
+          <li>Hipoglicemia pode simular AVE</li>
+        </ul>
+      </section>
+      <!-- ===================== APÊNDICE 01 — SINAIS VITAIS ===================== -->
+      <section class="card" id="ap01">
+        <div style="justify-content: space-between; display: flex">
+          <h2>APÊNDICE 01 – SINAIS VITAIS</h2>
+
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+        <p>
+          Os sinais vitais são a base de toda avaliação clínica. Sabê-los de cor
+          é OBRIGATÓRIO.
+        </p>
+
+        <!-- Frequência Cardíaca -->
+        <h3>1) Frequência Cardíaca (FC)</h3>
+        <table>
+          <tr>
+            <th>Faixa etária</th>
+            <th>Normal</th>
+          </tr>
+          <tr>
+            <td>Adulto</td>
+            <td>60–100 bpm</td>
+          </tr>
+          <tr>
+            <td>Idoso</td>
+            <td>Pode ser um pouco menor</td>
+          </tr>
+          <tr>
+            <td>Criança</td>
+            <td>70–120 bpm</td>
+          </tr>
+          <tr>
+            <td>Lactente</td>
+            <td>100–160 bpm</td>
+          </tr>
+        </table>
+
+        <h4>Alterações importantes:</h4>
+        <ul>
+          <li>
+            <strong>Taquicardia</strong> → choque, febre, dor, ansiedade,
+            hipovolemia.
+          </li>
+          <li>
+            <strong>Bradicardia</strong> → intoxicações, hipotermia, problemas
+            cardíacos, afogamento.
+          </li>
+        </ul>
+
+        <!-- Frequência Respiratória -->
+        <h3>2) Frequência Respiratória (FR)</h3>
+        <table>
+          <tr>
+            <th>Faixa etária</th>
+            <th>Normal</th>
+          </tr>
+          <tr>
+            <td>Adulto</td>
+            <td>12–20 irpm</td>
+          </tr>
+          <tr>
+            <td>Criança</td>
+            <td>20–30 irpm</td>
+          </tr>
+          <tr>
+            <td>Lactente</td>
+            <td>30–40 irpm</td>
+          </tr>
+        </table>
+
+        <h4>Alterações importantes:</h4>
+        <ul>
+          <li>
+            <strong>Taquipneia</strong> → hipóxia, febre, choque, acidose.
+          </li>
+          <li>
+            <strong>Bradipneia</strong> → depressão do SNC, drogas, lesões
+            neurológicas, PCR iminente.
+          </li>
+        </ul>
+
+        <!-- Pressão Arterial -->
+        <h3>3) Pressão Arterial (PA)</h3>
+        <ul>
+          <li><strong>Normal adulto:</strong> 120 × 80 mmHg</li>
+          <li><strong>Hipertensão:</strong> ≥ 140 × 90</li>
+          <li><strong>Hipotensão (APH):</strong> PAS &lt; 100 mmHg</li>
+          <li>Hipotensão em trauma = sinal tardio de choque (grave)</li>
+        </ul>
+
+        <!-- Temperatura -->
+        <h3>4) Temperatura</h3>
+        <ul>
+          <li><strong>Normal:</strong> 36–37,5 °C</li>
+          <li><strong>Febre:</strong> &gt; 37,8 °C</li>
+          <li><strong>Hipotermia:</strong> &lt; 35 °C</li>
+          <li>&lt; 32 °C → grave, risco de arritmia</li>
+        </ul>
+
+        <!-- Saturação -->
+        <h3>5) Saturação de Oxigênio (SpO₂)</h3>
+        <ul>
+          <li><strong>Normal:</strong> ≥ 94%</li>
+          <li><strong>DPOC:</strong> 88–92%</li>
+          <li>&lt; 94% = administrar O₂</li>
+          <li>Intoxicação por CO → saturação falsamente normal</li>
+        </ul>
+
+        <!-- TEC -->
+        <h3>6) Perfusão Capilar (TEC)</h3>
+        <ul>
+          <li><strong>Normal:</strong> &lt; 2 segundos</li>
+          <li>&gt; 2 segundos = má perfusão (choque)</li>
+        </ul>
+
+        <!-- Instabilidade -->
+        <h3>Sinais que indicam instabilidade</h3>
+        <ul>
+          <li>Taquicardia persistente</li>
+          <li>FR &gt; 30 ou &lt; 10</li>
+          <li>PA baixa</li>
+          <li>TEC &gt; 2s</li>
+          <li>Alteração de consciência</li>
+          <li>Extremidades frias e pálidas</li>
+        </ul>
+        <p>
+          Se qualquer um estiver alterado → risco alto →
+          <strong>Load and Go</strong>.
+        </p>
+      </section>
+
+      <!-- ===================== APÊNDICE 02 — GLASGOW ===================== -->
+      <section class="card" id="ap02">
+        <div style="justify-content: space-between; display: flex">
+          <h2>APÊNDICE 02 – Escala de Coma de Glasgow (ECG)</h2>
+
+          <h2><a class="btn primary" href="#sumario">📑 Sumário</a></h2>
+        </div>
+        <p>
+          A ECG avalia o nível de consciência com pontuação de 3 a 15. É
+          dividida em 3 componentes.
+        </p>
+
+        <!-- Ocular -->
+        <h3>1) Abertura Ocular (O)</h3>
+        <table>
+          <tr>
+            <th>Resposta</th>
+            <th>Pontos</th>
+          </tr>
+          <tr>
+            <td>Espontânea</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>Ao chamado</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>À dor</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Nenhuma</td>
+            <td>1</td>
+          </tr>
+        </table>
+
+        <!-- Verbal -->
+        <h3>2) Resposta Verbal (V)</h3>
+        <table>
+          <tr>
+            <th>Resposta</th>
+            <th>Pontos</th>
+          </tr>
+          <tr>
+            <td>Orientado</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>Confuso</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>Palavras inapropriadas</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Sons incompreensíveis</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Nenhuma</td>
+            <td>1</td>
+          </tr>
+        </table>
+
+        <h4>Observação:</h4>
+        <p>
+          Crianças pequenas usam ECGl (infantil), mas a ITO geralmente foca na
+          adulta.
+        </p>
+
+        <!-- Motora -->
+        <h3>3) Resposta Motora (M)</h3>
+        <table>
+          <tr>
+            <th>Resposta</th>
+            <th>Pontos</th>
+          </tr>
+          <tr>
+            <td>Obedece comandos</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <td>Localiza dor</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>Retirada (flexão normal)</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>Flexão anormal (decorticação)</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Extensão anormal (descerebração)</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Nenhuma</td>
+            <td>1</td>
+          </tr>
+        </table>
+
+        <!-- Resultado -->
+        <h3>Resultado Final</h3>
+        <p>Somatório O + V + M = 3 a 15 pontos.</p>
+
+        <h4>Classificação:</h4>
+        <ul>
+          <li><strong>13–15:</strong> TCE leve</li>
+          <li><strong>9–12:</strong> TCE moderado</li>
+          <li><strong>≤ 8:</strong> TCE grave – via aérea ameaçada</li>
+        </ul>
+
+        <p>
+          “ECG ≤ 8, intubar é destino” (no SAV). No APH básico: preparar via
+          aérea, O₂, RMC e transporte emergencial.
+        </p>
+
+        <!-- Pontos que caem -->
+        <h3>Pontos importantes</h3>
+        <ul>
+          <li>ECG deve ser avaliada e reavaliada constantemente.</li>
+          <li>Localizar dor (5) ≠ retirada inespecífica (4).</li>
+          <li>
+            Flexão anormal (3) e extensão (2) indicam lesão grave do tronco.
+          </li>
+          <li>Paciente sem resposta → sempre 1 em cada item (nunca 0).</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

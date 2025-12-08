@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="image.png" type="image/png" />
+    <title>Simulado - Atendimento Pré Hospitalar</title>
+    <meta name="theme-color" content="#38bdf8" />
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(() => console.log("Service Worker registrado"))
+          .catch((err) => console.error("SW erro:", err));
+      }
+    </script>
+
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #0b1222f2;
+        --muted: #94a3b8;
+        --text: #e5e7eb;
+        --accent: #38bdf8;
+        --ok: #16a34a;
+        --bad: #dc2626;
+        --border: #334155;
+      }
+
+      a:link {
+        text-decoration: none;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(
+            1200px 600px at 10% -10%,
+            rgba(56, 189, 248, 0.15),
+            transparent
+          ),
+          radial-gradient(
+            1000px 600px at 120% 20%,
+            rgba(34, 197, 94, 0.12),
+            transparent
+          ),
+          var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+          "Helvetica Neue", Arial;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 0 16px;
+      }
+
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      header h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      .card {
+        background: var(--card);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      .panel {
+        padding: 16px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .chip {
+        background: #0b1328;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .btn {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: #0a1222;
+        color: var(--text);
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: 700;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, #38bdf8, #34d399);
+        border-color: transparent;
+        color: #001018;
+      }
+
+      .q {
+        padding: 16px;
+        border-top: 1px dashed var(--border);
+      }
+
+      .q-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .q-title {
+        font-weight: 700;
+      }
+
+      .q-body {
+        margin-top: 8px;
+      }
+
+      .alt {
+        display: block;
+        margin: 0.25rem 0;
+        padding: 0.35rem 0.6rem;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .alt input {
+        margin-right: 0.5rem;
+      }
+
+      .alt.sel {
+        border-color: #1f2937;
+        background: #0f1a33;
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 0.95rem;
+      }
+
+      .status.ok {
+        color: var(--ok);
+      }
+
+      .status.bad {
+        color: var(--bad);
+      }
+
+      .ok-bg {
+        background: rgba(22, 163, 74, 0.12);
+        border: 1px solid rgba(22, 163, 74, 0.35);
+      }
+
+      .bad-bg {
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.35);
+      }
+
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin: 12px 0 0;
+      }
+
+      .footer {
+        margin: 24px 0 40px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      details {
+        background: #0b1328;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        margin: 12px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>📝 Simulado – APH (180 questões)</h1>
+        <div class="row">
+          <a
+            class="btn primary"
+            href="https://m00nh0rs3.github.io/simulados-cbmmg-2025/index.html"
+            >Simulados</a
+          >
+          <span id="score" class="chip">Acertos: 0/0</span>
+          <span id="aproveitamento" class="chip">Aproveitamento: 0%</span>
+        </div>
+      </header>
+
+      <section id="exam" class="card panel">
+        <div class="row" style="justify-content: space-between">
+          <strong
+            >Marque suas respostas e clique em <em>Verificar Tudo</em> ao final
+            para obter o resultado.</strong
+          ><p>OBS.: A cada 20 questões é um novo módulo (1 - 20: Módulo 100, 21-40: Módulo 20, etc.)</p>
+          <details>
+            <summary>Como funciona</summary>
+            <ul>
+              <li>
+                Responda as questões de múltipla escolha e as questões de
+                verdadeiro/falso.
+              </li>
+              <li>
+                Ao verificar, a questão fica
+                <b style="color: var(--ok)">verde</b> se correta,
+                <b style="color: var(--bad)">vermelha</b> se incorreta e mostra
+                a alternativa certa.
+              </li>
+              <li>Você pode <b>exportar</b> um CSV com resultados.</li>
+            </ul>
+          </details>
+          <div class="row">
+            <button id="btnReset" class="btn">Resetar</button>
+            <button id="btnExport" class="btn">Exportar CSV</button>
+            <a class="btn primary" href="resumo.html">Resumo da Matéria</a>
+          </div>
+        </div>
+        <div id="lista"></div>
+        <button id="btnCheckAll" class="btn primary">Verificar Tudo</button>
+      </section>
+
+      <!-- <p class="footer">&copy; 2025 CFSd Hotel</p> -->
+    </div>
+
+    <script>
+      const questoes = [
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 100 – Avaliação do Paciente
+
+        // Questão 1
+        {
+          n: 1,
+          enu: "Na Avaliação da Cena (P101), qual dos itens abaixo é OBRIGATÓRIO antes de qualquer aproximação ao paciente?",
+          alts: [
+            "Determinar possíveis diagnósticos diferenciais",
+            "Verificar segurança da cena e riscos ambientais",
+            "Realizar avaliação primária imediatamente",
+            "Colocar luvas estéreis e máscara N95",
+          ],
+          correta: "b",
+        },
+
+        // Questão 2
+        {
+          n: 2,
+          enu: "Durante a Avaliação Primária (P102), qual achado exige intervenção imediata ANTES de qualquer outra etapa?",
+          alts: [
+            "Fratura fechada de úmero",
+            "Hemorragia externa maciça",
+            "Dor torácica irradiada",
+            "TEC maior que 2 segundos",
+          ],
+          correta: "b",
+        },
+
+        // Questão 3
+        {
+          n: 3,
+          enu: "O que caracteriza corretamente o objetivo da Avaliação Primária segundo a ITO?",
+          alts: [
+            "Identificar todas as lesões presentes e classificar gravidade",
+            "Verificar sinais vitais completos e realizar ECG",
+            "Detectar condições que ameacem imediatamente a vida",
+            "Analisar história clínica completa do paciente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 4
+        {
+          n: 4,
+          enu: "Na avaliação secundária do trauma (P103), a sequência correta de exame físico é:",
+          alts: [
+            "Cabeça → tórax → abdome → membros → dorso",
+            "Cabeça → membros → abdome → tórax → dorso",
+            "Tórax → cabeça → dorso → abdome → membros",
+            "Cabeça → dorso → membros → abdome → tórax",
+          ],
+          correta: "a",
+        },
+
+        // Questão 5
+        {
+          n: 5,
+          enu: "Assinale a alternativa que contém um dos critérios para aplicação da Restrição de Movimento da Coluna (RMC) segundo o P104:",
+          alts: [
+            "Trauma com dor localizada apenas em tecidos moles",
+            "Paciente colaborativo e comunicativo após queda simples",
+            "Déficit neurológico presente após trauma",
+            "Idade inferior a 12 anos, sem outros critérios",
+          ],
+          correta: "c",
+        },
+
+        // Questão 6
+        {
+          n: 6,
+          enu: "Qual conduta é CORRETA durante a RMC?",
+          alts: [
+            "Imobilizar a coluna apenas após retirar o capacete",
+            "Manter estabilização manual da coluna até final da imobilização",
+            "Aplicar colar cervical somente após fixar a testa da vítima",
+            "Evitar uso de prancha rígida em todas as situações",
+          ],
+          correta: "b",
+        },
+
+        // Questão 7
+        {
+          n: 7,
+          enu: "Na avaliação secundária do paciente clínico (P105), o que DEVE ser feito antes da anamnese?",
+          alts: [
+            "Administração de oxigênio em todos os casos",
+            "Ausculta pulmonar completa",
+            "Exame físico direcionado pelos achados da primária",
+            "Coleta da história médica pregressa",
+          ],
+          correta: "c",
+        },
+
+        // Questão 8
+        {
+          n: 8,
+          enu: "Sobre a Decisão de Transporte (P106), qual situação exige LOAD AND GO?",
+          alts: [
+            "Paciente com dor torácica leve, PA estável",
+            "Paciente com fratura fechada sem hemorragia",
+            "Paciente com rebaixamento progressivo do nível de consciência",
+            "Paciente queixa de cefaleia sem outros sinais",
+          ],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 9,
+          enu: "Qual a finalidade da Avaliação Continuada (P107)?",
+          alts: [
+            "Verificar se houve melhora após medicamentos",
+            "Garantir que nenhuma lesão menor foi esquecida",
+            "Monitorar alterações no estado do paciente ao longo do atendimento",
+            "Determinar prognóstico clínico do paciente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 10
+        {
+          n: 10,
+          enu: "Na Transferência de Cuidados (P108), qual item é ESSENCIAL ser transmitido ao hospital?",
+          alts: [
+            "Opinião pessoal sobre estado emocional do paciente",
+            "Relato apenas das lesões visíveis",
+            "Informações objetivas do atendimento e evolução no trajeto",
+            "Detalhes irrelevantes como preferências pessoais do paciente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 11
+        {
+          n: 11,
+          enu: "O que DEVE ser feito na cena antes da avaliação primária em trauma com múltiplas vítimas?",
+          alts: [
+            "Avaliação secundária rápida de todos os envolvidos",
+            "Triagem inicial e identificação de riscos",
+            "Documentação fotográfica de todas as vítimas",
+            "Garantir que todos estão conscientes",
+          ],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 12,
+          enu: "O passo 'A' do XABCDE consiste em:",
+          alts: [
+            "Controle de hemorragias externas",
+            "Avaliação da perfusão capilar",
+            "Garantia da permeabilidade das vias aéreas",
+            "Avaliação da mecânica respiratória",
+          ],
+          correta: "c",
+        },
+
+        // Questão 13
+        {
+          n: 13,
+          enu: "Sobre o exame físico na avaliação secundária, marque a correta:",
+          alts: [
+            "A palpação abdominal deve ser realizada antes da inspeção torácica",
+            "Deve ser um exame rápido e sem palpação",
+            "Inclui inspeção, palpação, ausculta e avaliação neurológica",
+            "Não inclui dorso, pois exige movimentação excessiva",
+          ],
+          correta: "c",
+        },
+
+        // Questão 14
+        {
+          n: 14,
+          enu: "A investigação SAMPLE ocorre em qual etapa?",
+          alts: [
+            "Avaliação Primária",
+            "Avaliação Secundária",
+            "Avaliação da Cena",
+            "Decisão de Transporte",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 15,
+          enu: "Quais são os itens da avaliação inicial de um paciente consciente conforme a ITO?",
+          alts: [
+            "Nível de consciência, ventilação, pulso e glicemia",
+            "Segurança da cena, VA, respiração e circulação",
+            "Cinemática, sinais vitais completos e ECG",
+            "Abertura ocular, sinais vitais e história médica",
+          ],
+          correta: "b",
+        },
+
+        // Questão 16
+        {
+          n: 16,
+          enu: "Sinais de gravidade identificados na primária devem levar a:",
+          alts: [
+            "Intervenções imediatas e transporte rápido",
+            "Interrupção do atendimento para relatar ao CO",
+            "Coleta completa da anamnese antes de agir",
+            "Espera por apoio avançado antes de qualquer conduta",
+          ],
+          correta: "a",
+        },
+
+        // Questão 17
+        {
+          n: 17,
+          enu: "A reavaliação contínua ocorre em intervalos regulares porque:",
+          alts: [
+            "O paciente pode ocultar sintomas propositalmente",
+            "As condições podem mudar rapidamente durante o transporte",
+            "É exigência apenas documental",
+            "Evita que a equipe se distraia",
+          ],
+          correta: "b",
+        },
+
+        // Questão 18
+        {
+          n: 18,
+          enu: "Qual dos seguintes NÃO é um objetivo da avaliação da cena?",
+          alts: [
+            "Determinar número de vítimas",
+            "Identificar mecanismos de trauma",
+            "Avaliar segurança da equipe",
+            "Iniciar avaliação secundária",
+          ],
+          correta: "d",
+        },
+
+        // Questão 19
+        {
+          n: 19,
+          enu: "Na avaliação neurológica inicial, qual item é essencial?",
+          alts: [
+            "Nível de consciência pelo AVPU",
+            "Temperatura corporal exata",
+            "Pressão arterial sistólica",
+            "Exame completo das pupilas",
+          ],
+          correta: "a",
+        },
+
+        // Questão 20
+        {
+          n: 20,
+          enu: "De acordo com a ITO, quando a decisão de transporte deve ser tomada?",
+          alts: [
+            "Após a avaliação secundária completa",
+            "Após a triagem pré-hospitalar",
+            "Imediatamente após identificar ameaça à vida na primária",
+            "Somente após avaliação de sinais vitais repetidos",
+          ],
+          correta: "c",
+        },
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 200 – Suporte Básico de Vida
+
+        // Questão 1
+        {
+          n: 21,
+          enu: "Segundo a ITO, qual é o PRIMEIRO passo ao encontrar uma vítima possivelmente em parada cardiorrespiratória?",
+          alts: [
+            "Checar pulso carotídeo por 10 segundos",
+            "Avaliar segurança da cena e aproximar-se com EPI",
+            "Iniciar compressões torácicas de imediato",
+            "Aplicar o DEA antes da avaliação",
+          ],
+          correta: "b",
+        },
+
+        // Questão 2
+        {
+          n: 22,
+          enu: "Qual é a relação de compressão:ventilação em adultos na PCR, quando há apenas um socorrista?",
+          alts: ["15:2", "5:1", "30:2", "10:1"],
+          correta: "c",
+        },
+
+        // Questão 3
+        {
+          n: 23,
+          enu: "No SBV adulto, a profundidade IDEAL das compressões torácicas é:",
+          alts: ["1 cm", "3 cm", "5–6 cm", "6–8 cm"],
+          correta: "c",
+        },
+
+        // Questão 4
+        {
+          n: 24,
+          enu: "Em lactentes, a verificação de pulso deve ser feita em qual local?",
+          alts: [
+            "Pulso radial",
+            "Pulso braquial",
+            "Pulso poplíteo",
+            "Pulso carotídeo",
+          ],
+          correta: "b",
+        },
+
+        // Questão 5
+        {
+          n: 25,
+          enu: "No manejo da OVACE em ADULTO consciente, a conduta inicial é:",
+          alts: [
+            "5 compressões torácicas",
+            "5 tapotagens interescapulares",
+            "Manobra de Heimlich (compressões abdominais)",
+            "Iniciar RCP imediatamente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 6
+        {
+          n: 26,
+          enu: "Na OVACE de LACTENTE consciente, a conduta correta é:",
+          alts: [
+            "Compressões abdominais",
+            "5 tapotagens e 5 compressões torácicas",
+            "Iniciar RCP imediatamente",
+            "Heimlich com uma mão",
+          ],
+          correta: "b",
+        },
+
+        // Questão 7
+        {
+          n: 27,
+          enu: "Nos casos de parada respiratória, qual é a ventilação adequada em criança?",
+          alts: [
+            "1 ventilação a cada 3 segundos",
+            "2 ventilações por minuto",
+            "1 ventilação a cada 15 segundos",
+            "Ventilar apenas após DEA",
+          ],
+          correta: "a",
+        },
+
+        // Questão 8
+        {
+          n: 28,
+          enu: "Durante o SBV, quando o DEA deve ser aplicado?",
+          alts: [
+            "Após 5 ciclos de RCP",
+            "Somente se a vítima apresentar pulso fraco",
+            "Assim que disponível, interrompendo apenas o necessário",
+            "Após verificar saturação e glicemia",
+          ],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 29,
+          enu: "Se o DEA indicar 'choque não recomendado', a conduta imediata é:",
+          alts: [
+            "Administrar ventilação por 30 segundos",
+            "Reavaliar pulso imediatamente",
+            "Retomar compressões torácicas imediatamente",
+            "Aguardar nova análise automática",
+          ],
+          correta: "c",
+        },
+
+        // Questão 10
+        {
+          n: 30,
+          enu: "Na PCR traumática (P208), qual é a prioridade ABSOLUTA?",
+          alts: [
+            "Verificar sinais vitais completos",
+            "Estabelecer IV e administrar volume",
+            "Corrigir causa reversível como pneumotórax hipertensivo",
+            "Aplicar DEA antes de qualquer intervenção",
+          ],
+          correta: "c",
+        },
+
+        // Questão 11
+        {
+          n: 31,
+          enu: "Em crianças com dois socorristas, a razão compressão:ventilação correta é:",
+          alts: ["30:2", "15:2", "10:2", "5:1"],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 32,
+          enu: "Qual deve ser a taxa de compressões por minuto na RCP de adultos, crianças e lactentes?",
+          alts: [
+            "60–80 por minuto",
+            "80–100 por minuto",
+            "100–120 por minuto",
+            "120–150 por minuto",
+          ],
+          correta: "c",
+        },
+
+        // Questão 13
+        {
+          n: 33,
+          enu: "Na OVACE inconsciente em adulto, qual passo vem imediatamente APÓS colocar a vítima ao chão?",
+          alts: [
+            "Checar respiração por 30 segundos",
+            "Aplicar 5 golpes torácicos",
+            "Iniciar compressões torácicas",
+            "Realizar Heimlich deitado",
+          ],
+          correta: "c",
+        },
+
+        // Questão 14
+        {
+          n: 34,
+          enu: "Assinale a alternativa CORRETA sobre o uso do DEA em crianças:",
+          alts: [
+            "É contraindicado em menores de 8 anos",
+            "Se houver pás pediátricas, devem ser utilizadas",
+            "O DEA só pode ser usado após 5 minutos de RCP",
+            "É necessário retirar compressas do tórax, mas não água",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 35,
+          enu: "Qual parâmetro identifica Parada Respiratória, mas NÃO PCR?",
+          alts: [
+            "Ausência de pulso",
+            "Gasping",
+            "Ausência de movimentos respiratórios com pulso presente",
+            "ECG menor ou igual a 8",
+          ],
+          correta: "c",
+        },
+
+        // Questão 16
+        {
+          n: 36,
+          enu: "Na ventilação com BVM, qual é uma recomendação crítica segundo a ITO?",
+          alts: [
+            "Hiperventilar para aumentar a saturação rapidamente",
+            "Administrar ventilação lenta e suficiente para elevação torácica visível",
+            "Ventilar a cada 1 segundo obrigatoriamente",
+            "Usar pressão máxima para compensar perda de ar",
+          ],
+          correta: "b",
+        },
+
+        // Questão 17
+        {
+          n: 37,
+          enu: "A profundidade correta das compressões em CRIANÇA é:",
+          alts: [
+            "2 cm",
+            "Aproximadamente 1/3 do diâmetro AP do tórax",
+            "5–6 cm, igual a adulto",
+            "Metade da altura do tórax",
+          ],
+          correta: "b",
+        },
+
+        // Questão 18
+        {
+          n: 38,
+          enu: "Sobre o retorno da circulação espontânea (RCE), qual é um dos sinais?",
+          alts: [
+            "FR menor que 8 irpm",
+            "Movimentos respiratórios espontâneos",
+            "Saturação de 70%",
+            "Rigidez muscular súbita",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 39,
+          enu: "No trauma, a PCR costuma ter como mecanismo:",
+          alts: [
+            "Fibrilação ventricular",
+            "Hipóxia e choque hemorrágico",
+            "Hiperglicemia e broncoespasmo",
+            "Acidose metabólica isolada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 40,
+          enu: "Qual conduta é PROIBIDA na OVACE em lactentes?",
+          alts: [
+            "5 tapotagens interescapulares",
+            "Compressões torácicas com 2 dedos",
+            "Manobra de Heimlich",
+            "Avaliação após cada ciclo",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 300 – Emergências Clínicas e Psiquiátricas
+
+        // Questão 1
+        {
+          n: 41,
+          enu: "Segundo o material de IAM, qual é o SINAL mais sugestivo de infarto mesmo quando a dor torácica não está presente?",
+          alts: [
+            "Sudorese fria associada a náuseas",
+            "Cefaleia pulsátil",
+            "Edema de membros inferiores",
+            "Tosse produtiva",
+          ],
+          correta: "a",
+        },
+
+        // Questão 2
+        {
+          n: 42,
+          enu: "O IAM típico apresenta dor torácica com características específicas. Qual delas é mais compatível com o quadro clássico?",
+          alts: [
+            "Dor ventilatório-dependente que piora ao inspirar",
+            "Dor em pontada, bem localizada, sem irradiação",
+            "Dor opressiva retroesternal irradiando para braço ou mandíbula",
+            "Dor abdominal irradiando para região dorsal baixa",
+          ],
+          correta: "c",
+        },
+
+        // Questão 3
+        {
+          n: 43,
+          enu: "No atendimento pré-hospitalar ao IAM, qual conduta é primordial e deve ser implementada o mais cedo possível?",
+          alts: [
+            "Administrar 2L de SF rapidamente",
+            "Manter o paciente totalmente deitado",
+            "O₂ somente se SpO₂ < 94%",
+            "Iniciar massagem torácica preventiva",
+          ],
+          correta: "c",
+        },
+
+        // Questão 4
+        {
+          n: 44,
+          enu: "No AVE isquêmico, o início rápido dos sintomas ocorre porque:",
+          alts: [
+            "A circulação colateral sempre se rompe",
+            "Há bloqueio súbito de fluxo sanguíneo cerebral",
+            "Ocorre sangramento espontâneo no parênquima",
+            "Ocorre edema pulmonar neurogênico imediato",
+          ],
+          correta: "b",
+        },
+
+        // Questão 5
+        {
+          n: 45,
+          enu: "Qual achado abaixo é clássico do AVE hemorrágico?",
+          alts: [
+            "Dor de cabeça súbita e intensa ‘pior da vida’",
+            "Déficit motor progressivo ao longo de dias",
+            "Perda auditiva unilateral isolada",
+            "Febre alta seguida de rigidez cervical",
+          ],
+          correta: "a",
+        },
+
+        // Questão 6
+        {
+          n: 46,
+          enu: "Segundo o material de AVE, qual é o tempo crítico para suspeitar de janela terapêutica eficaz?",
+          alts: [
+            "Até 24 horas do início dos sintomas",
+            "Até 12 horas do início dos sintomas",
+            "Até 6 horas do início dos sintomas",
+            "Menos de 4,5 horas do início dos sintomas",
+          ],
+          correta: "d",
+        },
+
+        // Questão 7
+        {
+          n: 47,
+          enu: "Qual dos sinais abaixo NÃO faz parte dos critérios do teste FAST para AVE?",
+          alts: [
+            "Assimetria facial",
+            "Fraqueza em um dos braços",
+            "Alteração de fala",
+            "FR > 30 irpm",
+          ],
+          correta: "d",
+        },
+
+        // Questão 8
+        {
+          n: 48,
+          enu: "Na crise convulsiva ativa, qual ação é CORRETA no APH?",
+          alts: [
+            "Realizar contenção rígida dos membros",
+            "Introduzir objeto entre os dentes",
+            "Proteger a cabeça e afastar objetos perigosos",
+            "Realizar ventilação com BVM imediatamente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 49,
+          enu: "Após uma crise convulsiva tônico-clônica, o paciente entra na fase pós-ictal. Qual característica define essa fase?",
+          alts: [
+            "Hiperventilação e agressividade constante",
+            "Prostração, confusão e sonolência",
+            "Intensa dor torácica e palidez",
+            "Movimentos repetitivos involuntários",
+          ],
+          correta: "b",
+        },
+
+        // Questão 10
+        {
+          n: 50,
+          enu: "Qual é um dos fatores DE RISCO mais clássicos para AVE isquêmico?",
+          alts: [
+            "Asma",
+            "Hipertensão arterial",
+            "Hipotireoidismo",
+            "História de apneia",
+          ],
+          correta: "b",
+        },
+
+        // Questão 11
+        {
+          n: 51,
+          enu: "No IAM, qual sintoma é mais frequente em mulheres e idosos, dificultando o diagnóstico?",
+          alts: [
+            "Dor abdominal inespecífica",
+            "Epistaxe",
+            "Prurido nas mãos",
+            "Rigidez muscular axial",
+          ],
+          correta: "a",
+        },
+
+        // Questão 12
+        {
+          n: 52,
+          enu: "Durante um AVE, por que é fundamental medir glicemia capilar?",
+          alts: [
+            "Hiperglicemia causa convulsões imediatas",
+            "Hipoglicemia pode mimetizar sintomas de AVE",
+            "Glicemia determina se o AVE é hemorrágico",
+            "Porque todos os pacientes ficam hiperglicêmicos",
+          ],
+          correta: "b",
+        },
+
+        // Questão 13
+        {
+          n: 53,
+          enu: "Qual é o objetivo principal do APH no IAM?",
+          alts: [
+            "Reduzir a dor torácica a zero",
+            "Identificar ritmo cardíaco específico",
+            "Reduzir consumo de O₂ pelo miocárdio e acelerar chegada à terapia",
+            "Aplicar medicamentos trombolíticos imediatamente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 14
+        {
+          n: 54,
+          enu: "A convulsão febril ocorre principalmente:",
+          alts: [
+            "Em adultos jovens durante infecções respiratórias",
+            "Em idosos com AVC prévio",
+            "Em crianças entre 6 meses e 5 anos de idade",
+            "Em pacientes com histórico de IAM prévio",
+          ],
+          correta: "c",
+        },
+
+        // Questão 15
+        {
+          n: 55,
+          enu: "Qual dos seguintes sinais indica POSSÍVEL AVE do tipo truncular (tronco cerebral)?",
+          alts: [
+            "Paresia facial isolada",
+            "Alteração súbita da fala sem fraqueza",
+            "Diplopia, vertigem intensa e ataxia",
+            "Hemiparesia leve com dor local",
+          ],
+          correta: "c",
+        },
+
+        // Questão 16
+        {
+          n: 56,
+          enu: "Qual conduta é adequada após uma convulsão que já cessou?",
+          alts: [
+            "Colocar em posição prona para evitar queda",
+            "Manter VA, avaliar glicemia e posição lateral de segurança",
+            "Aplicar gelo na cabeça para reduzir atividade neuronal",
+            "Induzir vômito caso o paciente esteja nauseado",
+          ],
+          correta: "b",
+        },
+
+        // Questão 17
+        {
+          n: 57,
+          enu: "A dor torácica típica do IAM pode ser acompanhada de:",
+          alts: [
+            "Bradicardia respiratória",
+            "Sudorese fria e mal-estar",
+            "Cianose apenas labial",
+            "Ausência completa de sintomas sistêmicos",
+          ],
+          correta: "b",
+        },
+
+        // Questão 18
+        {
+          n: 58,
+          enu: "O AVE hemorrágico tem maior chance de apresentar:",
+          alts: [
+            "Instalação gradual e sem cefaleia",
+            "Cefaleia súbita, vômitos e rebaixamento rápido",
+            "Paralisia isolada do membro inferior",
+            "Afasia progressiva sem outros sinais",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 59,
+          enu: "Qual fator pode precipitar convulsões em pacientes epilépticos?",
+          alts: [
+            "Hipotermia leve",
+            "Fadiga extrema, estresse e sono irregular",
+            "Ingestão de água fria",
+            "Postura ortostática prolongada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 60,
+          enu: "Segundo o material de IAM, qual é um sinal de ALARME que indica possível instabilidade grave?",
+          alts: [
+            "Dor leve irradiando para costas",
+            "Pele quente e avermelhada",
+            "Sudorese fria e palidez",
+            "Estado de vigília preservado",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 400 – Emergências Obstétricas
+
+        // Questão 1
+        {
+          n: 61,
+          enu: "Durante a fase expulsiva do parto, qual achado confirma que o nascimento é iminente?",
+          alts: [
+            "Dilatação cervical de 3 cm",
+            "Contrações irregulares e pouco dolorosas",
+            "Coroamento com não retorno da cabeça fetal",
+            "Eliminação de tampão mucoso isolada",
+          ],
+          correta: "c",
+        },
+
+        // Questão 2
+        {
+          n: 2,
+          enu: "Quanto ao mecanismo do parto normal, qual conduta é CORRETA conforme a ITO?",
+          alts: [
+            "Realizar pressão no fundo uterino para agilizar o nascimento",
+            "Realizar tração da cabeça fetal para acelerar saída",
+            "Acompanhar o parto de forma passiva, guiando a cabeça sem puxar",
+            "Romper manualmente a bolsa se o trabalho estiver lento",
+          ],
+          correta: "c",
+        },
+
+        // Questão 3
+        {
+          n: 63,
+          enu: "Qual sinal indica DESCOLAMENTO PREMATURO DE PLACENTA (DPP)?",
+          alts: [
+            "Sangramento vivo indolor e súbito",
+            "Dor abdominal intensa com hipertonia uterina",
+            "Sangramento escuro associado a hipotonia uterina",
+            "Ausência completa de dor e perda de líquido claro",
+          ],
+          correta: "b",
+        },
+
+        // Questão 4
+        {
+          n: 64,
+          enu: "A hemorragia pós-parto é definida como:",
+          alts: [
+            "Perda maior que 300 mL em até 6 horas",
+            "Perda maior que 500 mL após parto vaginal",
+            "Perda superior a 150 mL ainda no intraútero",
+            "Perda acima de 200 mL seguida de queda de PA",
+          ],
+          correta: "b",
+        },
+
+        // Questão 5
+        {
+          n: 65,
+          enu: "Durante a assistência ao recém-nascido, qual conduta é correta imediatamente após o nascimento?",
+          alts: [
+            "Elevar o bebê acima do nível da placenta",
+            "Realizar aspiração rotineira de boca e nariz",
+            "Secar, estimular e manter aquecido",
+            "Realizar clampeamento imediato antes de 10 segundos",
+          ],
+          correta: "c",
+        },
+
+        // Questão 6
+        {
+          n: 66,
+          enu: "Em uma gestante com suspeita de placenta prévia, qual achado é típico?",
+          alts: [
+            "Sangramento vermelho vivo, indolor",
+            "Dor intensa e útero enrijecido",
+            "Hipertensão e proteinúria",
+            "Sangramento escuro com coágulos abundantes",
+          ],
+          correta: "a",
+        },
+
+        // Questão 7
+        {
+          n: 67,
+          enu: "Qual é a posição adequada para transporte da gestante no terceiro trimestre?",
+          alts: [
+            "Decúbito dorsal estrito",
+            "Decúbito lateral esquerdo",
+            "Posição de semi-Fowler com pernas elevadas",
+            "Decúbito ventral com elevação do quadril",
+          ],
+          correta: "b",
+        },
+
+        // Questão 8
+        {
+          n: 68,
+          enu: "Na eclâmpsia, qual manifestação ocorre obrigatoriamente?",
+          alts: [
+            "Convulsões",
+            "Febre alta",
+            "Cefaleia pulsátil sem alterações visuais",
+            "Sangramento vaginal leve",
+          ],
+          correta: "a",
+        },
+
+        // Questão 9
+        {
+          n: 69,
+          enu: "A pré-eclâmpsia é caracterizada principalmente por:",
+          alts: [
+            "Hipotensão e bradicardia",
+            "Hipertensão e proteinúria",
+            "Febre e dor pélvica intensa",
+            "Sangramento e plaquetopenia isolada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 10
+        {
+          n: 70,
+          enu: "Em caso de hemorragia pós-parto no APH, a conduta correta é:",
+          alts: [
+            "Massagem uterina e compressão abdominal contínua",
+            "Elevação dos membros e compressão uterina bimanual",
+            "Realizar tamponamento vaginal",
+            "Solicitar que a gestante realize esforço evacuatório",
+          ],
+          correta: "a",
+        },
+
+        // Questão 11
+        {
+          n: 71,
+          enu: "Sobre o trabalho de parto, qual achado indica a transição para fase expulsiva?",
+          alts: [
+            "Contrações a cada 10 minutos",
+            "Dilatação completa e vontade de fazer força",
+            "Perda de líquido amniótico isoladamente",
+            "Apenas dor lombar constante",
+          ],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 72,
+          enu: "Em casos de gemelaridade no APH:",
+          alts: [
+            "O segundo bebê geralmente demora horas, não sendo urgência",
+            "O segundo bebê costuma nascer em poucos minutos, exigindo preparo imediato",
+            "É obrigatório impedir o nascimento até chegada ao hospital",
+            "Deve-se realizar tração do primeiro bebê para agilizar a sequência",
+          ],
+          correta: "b",
+        },
+
+        // Questão 13
+        {
+          n: 73,
+          enu: "Quando suspeitar de ruptura uterina?",
+          alts: [
+            "Sangramento vermelho vivo sem dor",
+            "Hipertonia uterina e dor intensa, com regressão das contrações",
+            "Perda líquida abundante e indolor",
+            "Dor lombar isolada sem alteração hemodinâmica",
+          ],
+          correta: "b",
+        },
+
+        // Questão 14
+        {
+          n: 74,
+          enu: "Qual é o maior risco materno na hemorragia obstétrica?",
+          alts: [
+            "Hipotermia",
+            "Choque hipovolêmico",
+            "Hiperglicemia",
+            "Infarto do miocárdio",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 75,
+          enu: "Sobre cuidados com o cordão umbilical no APH, é correto afirmar:",
+          alts: [
+            "Clampear imediatamente ao nascer, independente do quadro",
+            "Clampear após cessar a pulsação ou conforme protocolo local",
+            "Massagear o cordão para acelerar esvaziamento",
+            "Realizar aspiração do cordão antes do clampeamento",
+          ],
+          correta: "b",
+        },
+
+        // Questão 16
+        {
+          n: 76,
+          enu: "O sinal clínico mais consistente de pré-eclâmpsia grave é:",
+          alts: [
+            "PA ≥ 160/110 mmHg",
+            "Temperatura ≥ 38,5°C",
+            "FR < 10 irpm",
+            "Diarreia intensa",
+          ],
+          correta: "a",
+        },
+
+        // Questão 17
+        {
+          n: 77,
+          enu: "Qual conduta é CORRETA ao atender parto no APH?",
+          alts: [
+            "Puxar suavemente o bebê se o expulsivo estiver lento",
+            "Permitir saída espontânea, oferecendo apenas suporte das mãos",
+            "Romper manualmente membranas para acelerar",
+            "Aplicar pressão no abdome para ajudar expulsão",
+          ],
+          correta: "b",
+        },
+
+        // Questão 18
+        {
+          n: 78,
+          enu: "Sangramento vaginal indolor no terceiro trimestre é altamente sugestivo de:",
+          alts: ["Placenta prévia", "DPP", "Pré-eclâmpsia", "Ruptura uterina"],
+          correta: "a",
+        },
+
+        // Questão 19
+        {
+          n: 79,
+          enu: "Em eclâmpsia, além da convulsão, é comum observar:",
+          alts: [
+            "Hipotensão intensa",
+            "Proteinúria e dor epigástrica",
+            "Sangramento vaginal abundante",
+            "Febre e rigidez nucal",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 80,
+          enu: "A principal prioridade no APH ao lidar com pré-eclâmpsia grave é:",
+          alts: [
+            "Administrar grande volume de líquidos",
+            "Reduzir rapidamente a PA com qualquer método",
+            "Proteger via aérea e evitar estímulos que precipitem convulsões",
+            "Iniciar massagem uterina imediatamente",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 500 – Emergências Traumáticas
+
+        // Questão 1
+        {
+          n: 81,
+          enu: "No trauma cranioencefálico, qual achado indica risco iminente de herniação?",
+          alts: [
+            "Midríase bilateral reativa",
+            "Pupila unilateral dilatada e não reativa",
+            "Bradipneia leve isolada",
+            "Sangramento nasal sem fratura aparente",
+          ],
+          correta: "b",
+        },
+
+        // Questão 2
+        {
+          n: 82,
+          enu: "No Trauma Raquimedular, a principal conduta inicial é:",
+          alts: [
+            "Avaliar ECG antes de qualquer estabilização",
+            "Movimentar o paciente para aliviar dor",
+            "Imobilizar completamente a coluna antes de qualquer movimentação",
+            "Retirar o colar cervical para avaliar melhor o pescoço",
+          ],
+          correta: "c",
+        },
+
+        // Questão 3
+        {
+          n: 83,
+          enu: "O tórax instável (volet costal) se caracteriza por:",
+          alts: [
+            "Diminuição ausculta bilateral",
+            "Movimento paradoxal do segmento fraturado",
+            "Dor leve associada a crepitação discreta",
+            "Apenas fratura isolada de uma costela",
+          ],
+          correta: "b",
+        },
+
+        // Questão 4
+        {
+          n: 84,
+          enu: "Em suspeita de pneumotórax hipertensivo, qual achado é típico?",
+          alts: [
+            "Estase jugular, desvio de traqueia e hipoventilação unilateral",
+            "Dor abdominal intensa e rigidez de parede",
+            "Sangramento profuso em campo torácico aberto",
+            "Hipotermia e bradicardia",
+          ],
+          correta: "a",
+        },
+
+        // Questão 5
+        {
+          n: 85,
+          enu: "No trauma abdominal fechado, o sinal clínico mais sugestivo de hemorragia interna é:",
+          alts: [
+            "Vômitos frequentes",
+            "Dor abdominal leve sem irradiação",
+            "Hipotensão progressiva com taquicardia",
+            "Temperatura elevada",
+          ],
+          correta: "c",
+        },
+
+        // Questão 6
+        {
+          n: 86,
+          enu: "A fratura pélvica grave é particularmente perigosa porque:",
+          alts: [
+            "Tem risco baixo de sangramento significativo",
+            "Raramente afeta órgãos internos",
+            "Pode causar hemorragia massiva interna por grandes vasos",
+            "Sempre apresenta deformidade visível",
+          ],
+          correta: "c",
+        },
+
+        // Questão 7
+        {
+          n: 87,
+          enu: "Qual é a principal conduta ao encontrar evisceração abdominal no APH?",
+          alts: [
+            "Tentar recolocar vísceras no abdome",
+            "Aplicar gelo para reduzir edema",
+            "Cobrir vísceras com compressas umedecidas e estéreis",
+            "Aplicar pressão direta para conter sangramento",
+          ],
+          correta: "c",
+        },
+
+        // Questão 8
+        {
+          n: 88,
+          enu: "A queimadura de terceiro grau se caracteriza por:",
+          alts: [
+            "Dor intensa em toda a área afetada",
+            "Pele branca, seca e sem sensibilidade",
+            "Presença de bolhas intactas",
+            "Eritema e dor leve",
+          ],
+          correta: "b",
+        },
+
+        // Questão 9
+        {
+          n: 89,
+          enu: "O choque elétrico apresenta risco aumentado de:",
+          alts: [
+            "Arritmias cardíacas graves",
+            "Hipotermia profunda",
+            "Convulsões exclusivamente por febre",
+            "Lesões apenas superficiais na pele",
+          ],
+          correta: "a",
+        },
+
+        // Questão 10
+        {
+          n: 90,
+          enu: "Em ferimento por arma de fogo, a prioridade imediata é:",
+          alts: [
+            "Localizar o projétil para retirada",
+            "Expandir o ferimento para melhor inspeção",
+            "Controlar hemorragias e avaliar pontos de entrada e saída",
+            "Mover o membro afetado para garantir circulação",
+          ],
+          correta: "c",
+        },
+
+        // Questão 11
+        {
+          n: 91,
+          enu: "Em ferimento por objeto empalado, a conduta correta é:",
+          alts: [
+            "Remover o objeto para evitar contusão interna",
+            "Movimentar o objeto até aliviar dor",
+            "Fixar o objeto e estabilizar para transporte",
+            "Empurrar o objeto para dentro para evitar sangramento",
+          ],
+          correta: "c",
+        },
+
+        // Questão 12
+        {
+          n: 92,
+          enu: "Durante o atendimento ao trauma musculoesquelético, o principal sinal de fratura exposta é:",
+          alts: [
+            "Crepitação leve",
+            "Edema sem lesão visível",
+            "Osso visível ou ferimento profundo com risco de comunicação",
+            "Apenas dor à palpação",
+          ],
+          correta: "c",
+        },
+
+        // Questão 13
+        {
+          n: 93,
+          enu: "A tríade clássica do TCE grave é:",
+          alts: [
+            "Hiperglicemia, sudorese e agitação",
+            "Bradicardia, hipertensão e alterações respiratórias",
+            "Hipotensão, taquicardia e febre",
+            "Convulsão, bradicardia e palidez",
+          ],
+          correta: "b",
+        },
+
+        // Questão 14
+        {
+          n: 94,
+          enu: "No trauma de cabeça e pescoço, o sinal de Battle indica:",
+          alts: [
+            "Fratura de mandíbula",
+            "Fratura de base de crânio",
+            "Fratura de cervical baixa",
+            "Lesão exclusiva de couro cabeludo",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 95,
+          enu: "No trauma torácico aberto ('sucking chest wound'), a conduta correta é:",
+          alts: [
+            "Fechar completamente o ferimento com curativo hermético",
+            "Realizar curativo valvulado em três pontos",
+            "Tamponar o ferimento com gaze",
+            "Aspirar ar com dispositivo manual",
+          ],
+          correta: "b",
+        },
+
+        // Questão 16
+        {
+          n: 96,
+          enu: "Em amputações traumáticas, qual medida é obrigatória no APH?",
+          alts: [
+            "Lavar vigorosamente o coto e o membro amputado",
+            "Colocar o membro amputado diretamente no gelo",
+            "Envolver o membro amputado em gaze estéril úmida e refrigerar sem contato direto com gelo",
+            "Manter o membro em posição anatômica junto ao corpo do paciente",
+          ],
+          correta: "c",
+        },
+
+        // Questão 17
+        {
+          n: 97,
+          enu: "No trauma abdominal, o sinal de Cullen (equimose periumbilical) sugere:",
+          alts: [
+            "Lesão hepática leve",
+            "Hemorragia retroperitoneal",
+            "Lesão de bexiga sem sangramento",
+            "Fratura de pélvis exclusivamente",
+          ],
+          correta: "b",
+        },
+
+        // Questão 18
+        {
+          n: 98,
+          enu: "Qual é a prioridade absoluta no choque hipovolêmico traumático?",
+          alts: [
+            "Elevar membros inferiores",
+            "Controlar hemorragia e manter perfusão",
+            "Administrar grande volume de soro fisiológico rapidamente",
+            "Oferecer alimento para elevar glicemia",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 99,
+          enu: "A queimadura por inalação deve ser suspeitada quando:",
+          alts: [
+            "Há queimadura apenas nos membros inferiores",
+            "Presença de fuligem em narinas ou tosse carbonácea",
+            "Paciente apresenta dor leve sem sinais visíveis",
+            "Não há sinais externos de queimadura",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 100,
+          enu: "O principal risco imediato nas fraturas de costela múltiplas é:",
+          alts: [
+            "Hipotermia",
+            "Perfuração de pulmão e insuficiência respiratória",
+            "Infecção precoce",
+            "Convulsão",
+          ],
+          correta: "b",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 600 – Choque e Emergências Ambientais
+
+        // Questão 1
+        {
+          n: 101,
+          enu: "O principal mecanismo fisiopatológico do choque hipovolêmico é:",
+          alts: [
+            "Falha cardíaca primária",
+            "Perda de volume intravascular com redução de perfusão",
+            "Vasodilatação maciça por toxinas",
+            "Bloqueio de impulsos nervosos simpáticos",
+          ],
+          correta: "b",
+        },
+
+        // Questão 2
+        {
+          n: 102,
+          enu: "Qual achado é mais indicativo de choque compensado?",
+          alts: [
+            "Hipotensão acentuada",
+            "Nível de consciência rebaixado",
+            "Taquicardia com pele fria e sudorese",
+            "Bradipneia e pulso filiforme",
+          ],
+          correta: "c",
+        },
+
+        // Questão 3
+        {
+          n: 103,
+          enu: "No choque séptico, a característica mais marcante é:",
+          alts: [
+            "Vasoconstrição progressiva",
+            "Vasodilatação e redistribuição inadequada do fluxo sanguíneo",
+            "Perda sanguínea visível",
+            "Diminuição da frequência cardíaca",
+          ],
+          correta: "b",
+        },
+
+        // Questão 4
+        {
+          n: 104,
+          enu: "O choque neurogênico se diferencia dos demais por apresentar:",
+          alts: [
+            "Pele fria e pegajosa",
+            "Hipotensão com bradicardia",
+            "Taquicardia importante",
+            "Hiperventilação e petéquias",
+          ],
+          correta: "b",
+        },
+
+        // Questão 5
+        {
+          n: 105,
+          enu: "A prioridade inicial no choque anafilático é:",
+          alts: [
+            "Aquecer o paciente",
+            "Administrar grandes volumes de soro",
+            "Garantir via aérea e administrar adrenalina",
+            "Controlar hemorragias externas",
+          ],
+          correta: "c",
+        },
+
+        // Questão 6
+        {
+          n: 106,
+          enu: "No afogamento, o mecanismo principal de parada respiratória é:",
+          alts: [
+            "Broncoespasmo persistente",
+            "Aspiração de água levando à hipóxia",
+            "Hipotermia súbita",
+            "Parada cardíaca primária",
+          ],
+          correta: "b",
+        },
+
+        // Questão 7
+        {
+          n: 107,
+          enu: "O reflexo do mergulhador é mais evidente em:",
+          alts: ["Adultos jovens", "Idosos", "Crianças", "Gestantes"],
+          correta: "c",
+        },
+
+        // Questão 8
+        {
+          n: 108,
+          enu: "No atendimento ao afogamento, a ventilação inicial é fundamental porque:",
+          alts: [
+            "A vítima costuma manter a circulação intacta por mais tempo",
+            "A presença de água no estômago impede compressões",
+            "A maioria das paradas é secundária à hipóxia",
+            "As vias aéreas permanecem totalmente secas",
+          ],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 109,
+          enu: "Em vítimas de afogamento, a manobra INCORRETA é:",
+          alts: [
+            "Remover a vítima da água sempre mantendo alinhamento cervical",
+            "Priorizar ventilação antes das compressões se houver apneia",
+            "Realizar pressão abdominal para expulsar água",
+            "Aplicar oxigênio suplementar o mais cedo possível",
+          ],
+          correta: "c",
+        },
+
+        // Questão 10
+        {
+          n: 110,
+          enu: "A picada do escorpião Tityus serrulatus geralmente causa:",
+          alts: [
+            "Dor local intensa e risco de manifestações sistêmicas graves",
+            "Lesão extensa necrótica",
+            "Paralisia muscular imediata",
+            "Apenas prurido discreto",
+          ],
+          correta: "a",
+        },
+
+        // Questão 11
+        {
+          n: 111,
+          enu: "Na picada da aranha armadeira (Phoneutria), é comum observar:",
+          alts: [
+            "Ausência de dor significativa",
+            "Dor excruciante com possível agitação e hipertensão",
+            "Apenas lesão necrótica extensa",
+            "Paralisia respiratória imediata",
+          ],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 112,
+          enu: "O veneno da aranha-marrom (Loxosceles) provoca principalmente:",
+          alts: [
+            "Neurotoxicidade severa",
+            "Necrose cutânea progressiva por ação citotóxica",
+            "Hipertensão e convulsões",
+            "Arritmias súbitas",
+          ],
+          correta: "b",
+        },
+
+        // Questão 13
+        {
+          n: 113,
+          enu: "A serpente Bothrops (jararaca) causa quadro caracterizado por:",
+          alts: [
+            "Neurotoxicidade com paralisia",
+            "Insuficiência renal precoce e hemorragias",
+            "Necrose apenas indolor",
+            "Ausência de sintomas sistêmicos",
+          ],
+          correta: "b",
+        },
+
+        // Questão 14
+        {
+          n: 114,
+          enu: "A serpente Crotalus (cascavel) provoca quadro clínico marcado por:",
+          alts: [
+            "Sangramento intenso e necrose",
+            "Neurotoxinas com paralisia flácida progressiva",
+            "Apenas dor local intensa",
+            "Choque anafilático imediato",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 115,
+          enu: "O principal sinal clínico de envenenamento por coral verdadeira (Micrurus) é:",
+          alts: [
+            "Dor intensa com edema",
+            "Necrose tissular",
+            "Paralisia respiratória progressiva",
+            "Equimose e sangramento local",
+          ],
+          correta: "c",
+        },
+
+        // Questão 16
+        {
+          n: 116,
+          enu: "Qual conduta é CORRETA no atendimento pré-hospitalar a picada de serpente?",
+          alts: [
+            "Aplicar torniquete proximal ao ferimento",
+            "Realizar sucção do veneno",
+            "Imobilizar o membro e manter vítima em repouso",
+            "Incutir gelo diretamente sobre a ferida",
+          ],
+          correta: "c",
+        },
+
+        // Questão 17
+        {
+          n: 117,
+          enu: "Qual achado indica evolução grave após picada de jararaca?",
+          alts: [
+            "Dor leve e transitória",
+            "Ausência de edema após 3 horas",
+            "Sangramento gengival e hipotensão",
+            "Somente vermelhidão no local",
+          ],
+          correta: "c",
+        },
+
+        // Questão 18
+        {
+          n: 118,
+          enu: "A vítima de choque anafilático normalmente apresenta:",
+          alts: [
+            "Bradicardia e pele seca",
+            "Edema de glote, sibilância e queda de PA",
+            "Apenas dor abdominal sem outras manifestações",
+            "Hipertensão persistente",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 119,
+          enu: "Em caso de afogamento em água fria, há maior chance de sobrevivência devido:",
+          alts: [
+            "Ao aumento do metabolismo",
+            "À redução do consumo de oxigênio pelo corpo",
+            "À maior concentração de eletrólitos na água",
+            "À manutenção do tônus muscular",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 120,
+          enu: "O choque cardiogênico apresenta qual característica típica?",
+          alts: [
+            "Pulso rápido e forte",
+            "Pele quente e úmida",
+            "Congestão pulmonar e perfusão periférica reduzida",
+            "Hipertensão constante",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Módulo 700 – Protocolos Gerais
+
+        // Questão 1
+        {
+          n: 121,
+          enu: "O isolamento de substâncias corporais (P701) é indicado quando existe:",
+          alts: [
+            "Contato casual com o paciente",
+            "Risco de exposição a sangue ou fluidos potencialmente contaminados",
+            "Apenas suspeita de doença respiratória",
+            "Risco de queimaduras térmicas",
+          ],
+          correta: "b",
+        },
+
+        // Questão 2
+        {
+          n: 122,
+          enu: "Sobre o uso correto de EPIs no isolamento, qual é a diretriz da ITO?",
+          alts: [
+            "Luvas são opcionais quando não há sangramento",
+            "Óculos ou viseira devem ser utilizados se houver possibilidade de respingos",
+            "Máscara só é indicada em ambientes hospitalares",
+            "Avental impermeável deve ser descartado apenas se rasgar",
+          ],
+          correta: "b",
+        },
+
+        // Questão 3
+        {
+          n: 123,
+          enu: "Na triagem pré-hospitalar (P702), o paciente vermelho é aquele que:",
+          alts: [
+            "Pode esperar até 60 minutos",
+            "Apresenta pequenas lesões sem risco",
+            "Tem risco imediato à vida e precisa de intervenção urgente",
+            "Está deambulando sem apoio",
+          ],
+          correta: "c",
+        },
+
+        // Questão 4
+        {
+          n: 124,
+          enu: "No protocolo START, um paciente é classificado como preto quando:",
+          alts: [
+            "Respira acima de 30 irpm",
+            "Não respira mesmo após abertura das vias aéreas",
+            "Apresenta fratura exposta sem sangramento",
+            "Está consciente porém letárgico",
+          ],
+          correta: "b",
+        },
+
+        // Questão 5
+        {
+          n: 125,
+          enu: "A oximetria de pulso (P703) é menos confiável em qual situação?",
+          alts: [
+            "Taquicardia",
+            "Hipotensão grave e má perfusão periférica",
+            "Paciente ansioso",
+            "Uso de O₂ suplementar",
+          ],
+          correta: "b",
+        },
+
+        // Questão 6
+        {
+          n: 126,
+          enu: "A leitura da oximetria pode ser falsamente normal em:",
+          alts: [
+            "Hipotermia leve",
+            "Intoxicação por monóxido de carbono",
+            "Taquipneia",
+            "Choque neurogênico",
+          ],
+          correta: "b",
+        },
+
+        // Questão 7
+        {
+          n: 127,
+          enu: "Sobre administração de oxigênio (P704), qual indicação é CORRETA?",
+          alts: [
+            "Administrar O₂ a todos os pacientes sem distinção",
+            "Paciente com SpO₂ ≥ 94% não necessita O₂ rotineiramente",
+            "Em DPOC nunca se administra oxigênio",
+            "O O₂ só deve ser usado após avaliação hospitalar",
+          ],
+          correta: "b",
+        },
+
+        // Questão 8
+        {
+          n: 128,
+          enu: "O cateter nasal fornece aproximadamente:",
+          alts: [
+            "100% de FiO₂",
+            "24–44% de FiO₂",
+            "60–80% de FiO₂",
+            "5% de FiO₂",
+          ],
+          correta: "b",
+        },
+
+        // Questão 9
+        {
+          n: 129,
+          enu: "A aspiração de vias aéreas (P706) deve durar no máximo:",
+          alts: [
+            "5 segundos em adultos",
+            "10–15 segundos para evitar hipóxia",
+            "30 segundos para limpar completamente",
+            "Até cessar secreções visíveis",
+          ],
+          correta: "b",
+        },
+
+        // Questão 10
+        {
+          n: 130,
+          enu: "Durante a aspiração, a técnica correta é:",
+          alts: [
+            "Aplicar sucção antes de inserir o cateter",
+            "Inserir sem sucção e aspirar ao retirar",
+            "Usar pressão máxima contínua",
+            "Aspiração profunda repetida até limpar tudo",
+          ],
+          correta: "b",
+        },
+
+        // Questão 11
+        {
+          n: 131,
+          enu: "A extração rápida de paciente (P707) é indicada quando:",
+          alts: [
+            "O paciente está estável mas preso",
+            "Há risco iminente à cena ou necessidade urgente de atendimento",
+            "É necessário acelerar o transporte por conveniência",
+            "Há apenas pequenas escoriações",
+          ],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 132,
+          enu: "A extração controlada com imobilização completa é preferida quando:",
+          alts: [
+            "O paciente está instável",
+            "A cena é segura e o paciente está estável",
+            "Há risco de incêndio imediato",
+            "O veículo está submerso",
+          ],
+          correta: "b",
+        },
+
+        // Questão 13
+        {
+          n: 133,
+          enu: "Sobre os direitos do paciente (P708), o paciente consciente tem direito de:",
+          alts: [
+            "Recusar atendimento mesmo em risco de morte",
+            "Ser atendido apenas se acompanhado de familiar",
+            "Escolher qual técnico conduzirá o atendimento",
+            "Selecionar o hospital de destino em todos os casos",
+          ],
+          correta: "a",
+        },
+
+        // Questão 14
+        {
+          n: 134,
+          enu: "A recusa de atendimento só é válida quando:",
+          alts: [
+            "O paciente está consciente e orientado",
+            "O paciente está inconsciente mas sem ferimentos",
+            "O paciente está alcoolizado, porém calmo",
+            "O paciente está sonolento, porém conversando",
+          ],
+          correta: "a",
+        },
+
+        // Questão 15
+        {
+          n: 135,
+          enu: "Segundo a presunção de óbito (P709), o óbito pode ser presumido quando:",
+          alts: [
+            "O paciente está em PCR há 5 minutos",
+            "Há rigidez cadavérica, decapitação ou putrefação",
+            "Não há resposta ao chamado verbal",
+            "Há FR abaixo de 10 irpm",
+          ],
+          correta: "b",
+        },
+
+        // Questão 16
+        {
+          n: 136,
+          enu: "A ressuscitação NÃO deve ser iniciada quando:",
+          alts: [
+            "O paciente está em ambiente remoto",
+            "A vítima apresenta sinais evidentes de morte",
+            "O paciente está hipotérmico",
+            "Há suspeita de overdose",
+          ],
+          correta: "b",
+        },
+
+        // Questão 17
+        {
+          n: 137,
+          enu: "Sobre o uso do glicosímetro (P710), qual indicação é CORRETA?",
+          alts: [
+            "Todo paciente em emergência deve ter glicemia medida",
+            "Serve apenas para pacientes diabéticos",
+            "É indicado em rebaixamento do nível de consciência",
+            "Não deve ser usado no APH",
+          ],
+          correta: "c",
+        },
+
+        // Questão 18
+        {
+          n: 138,
+          enu: "A hipoglicemia geralmente se manifesta com:",
+          alts: [
+            "Pele quente e seca",
+            "Sudorese, confusão e tremores",
+            "Bradipneia e rigidez",
+            "Euforia e midríase",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 139,
+          enu: "Quando o paciente recusa aferição de glicemia:",
+          alts: [
+            "A equipe deve forçar o procedimento",
+            "O atendimento deve ser interrompido",
+            "A recusa deve ser explicada, documentada e validada",
+            "A equipe deve dispensar avaliação de nível de consciência",
+          ],
+          correta: "c",
+        },
+
+        // Questão 20
+        {
+          n: 140,
+          enu: "A prioridade na triagem START ao avaliar a respiração é:",
+          alts: [
+            "Averiguar sinais de fratura primeiro",
+            "Repetir avaliação após 5 minutos",
+            "Abrir vias aéreas e verificar se o paciente passa a respirar",
+            "Colocar colar cervical antes de tudo",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Apêndice 01 – Sinais Vitais
+
+        // Questão 1
+        {
+          n: 141,
+          enu: "Considerando a avaliação da frequência cardíaca, qual situação indica maior risco de choque compensado?",
+          alts: [
+            "Pulso 68 bpm, forte e regular",
+            "Pulso 52 bpm em repouso",
+            "Pulso 128 bpm, fraco e filiforme",
+            "Pulso 100 bpm, forte e regular",
+          ],
+          correta: "c",
+        },
+
+        // Questão 2
+        {
+          n: 142,
+          enu: "A taquipneia é mais associada a:",
+          alts: [
+            "Hiperventilação compensatória por acidose",
+            "Saturação normal e ausência de esforço",
+            "Hipotermia leve",
+            "Bradicarida fisiológica",
+          ],
+          correta: "a",
+        },
+
+        // Questão 3
+        {
+          n: 143,
+          enu: "O tempo de enchimento capilar (TEC) maior que 2 segundos sugere:",
+          alts: [
+            "Perfusão adequada",
+            "Vasodilatação sistêmica",
+            "Hipoperfusão periférica",
+            "Alcalose respiratória",
+          ],
+          correta: "c",
+        },
+
+        // Questão 4
+        {
+          n: 144,
+          enu: "A pressão arterial sistólica abaixo de 100 mmHg no trauma indica:",
+          alts: [
+            "Sinal precoce de choque",
+            "Possível estado basal do paciente",
+            "Sinal tardio e preocupante de choque hipovolêmico",
+            "Impacto emocional temporário",
+          ],
+          correta: "c",
+        },
+
+        // Questão 5
+        {
+          n: 145,
+          enu: "A febre é classificada quando a temperatura corporal está:",
+          alts: [
+            "Entre 35°C e 36°C",
+            "Acima de 37,8°C",
+            "Entre 36,5°C e 37°C",
+            "Abaixo de 35°C",
+          ],
+          correta: "b",
+        },
+
+        // Questão 6
+        {
+          n: 146,
+          enu: "A saturação de oxigênio (SpO₂) menor que 94% indica necessidade de:",
+          alts: [
+            "Repetir o exame apenas",
+            "Oxigenoterapia conforme protocolo",
+            "Aumento da ingestão hídrica",
+            "Administração de glicose",
+          ],
+          correta: "b",
+        },
+
+        // Questão 7
+        {
+          n: 147,
+          enu: "A leitura da SpO₂ pode ser falsamente normal em:",
+          alts: [
+            "Hipotermia leve",
+            "Taquicardia",
+            "Intoxicação por monóxido de carbono",
+            "Broncoespasmo leve",
+          ],
+          correta: "c",
+        },
+
+        // Questão 8
+        {
+          n: 148,
+          enu: "No lactente, a frequência cardíaca normal gira em torno de:",
+          alts: ["40–60 bpm", "60–100 bpm", "100–160 bpm", "160–200 bpm"],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 149,
+          enu: "A bradipneia é especialmente preocupante porque sugere:",
+          alts: [
+            "Hipoxemia leve",
+            "Depressão do SNC ou falência respiratória iminente",
+            "Estado emocional alterado",
+            "Hipoglicemia isolada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 10
+        {
+          n: 150,
+          enu: "Em caso de pele fria, pálida e pegajosa, suspeita-se principalmente de:",
+          alts: ["Hipertensão", "Choque", "Desidratação leve", "Hiperglicemia"],
+          correta: "b",
+        },
+
+        // Questão 11
+        {
+          n: 151,
+          enu: "A avaliação da frequência respiratória deve considerar:",
+          alts: [
+            "Apenas o número de movimentos torácicos",
+            "Padrão, profundidade e esforço respiratório",
+            "Se o paciente está ansioso",
+            "A cor da pele exclusivamente",
+          ],
+          correta: "b",
+        },
+
+        // Questão 12
+        {
+          n: 152,
+          enu: "A hipertensão grave no APH geralmente é definida por:",
+          alts: [
+            "PA 130x80 mmHg",
+            "PA ≥ 160x110 mmHg",
+            "PA ≥ 100x70 mmHg",
+            "PA 140x90 mmHg isolada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 13
+        {
+          n: 153,
+          enu: "A hipotermia moderada ocorre quando a temperatura está:",
+          alts: [
+            "Entre 33°C e 35°C",
+            "Entre 35°C e 36°C",
+            "Entre 29°C e 32°C",
+            "Acima de 38°C",
+          ],
+          correta: "c",
+        },
+
+        // Questão 14
+        {
+          n: 154,
+          enu: "O pulso filiforme pode indicar:",
+          alts: [
+            "Ansiedade",
+            "Choque avançado",
+            "Hipertensão",
+            "Hiperglicemia",
+          ],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 155,
+          enu: "A cianose central está mais relacionada à:",
+          alts: [
+            "Baixa perfusão periférica apenas",
+            "Hipóxia grave",
+            "Hipotermia isolada",
+            "Desidratação moderada",
+          ],
+          correta: "b",
+        },
+
+        // Questão 16
+        {
+          n: 156,
+          enu: "Sinais de instabilidade hemodinâmica incluem:",
+          alts: [
+            "PA 120x80, pulso forte, pele quente",
+            "Pulso rápido, TEC lento e alteração de consciência",
+            "FR 16 irpm, SpO₂ 98%",
+            "Glicemia 90 mg/dL",
+          ],
+          correta: "b",
+        },
+
+        // Questão 17
+        {
+          n: 157,
+          enu: "O TEC deve ser avaliado principalmente em:",
+          alts: [
+            "Politraumatizados e suspeita de choque",
+            "Apenas crianças",
+            "Apenas pacientes conscientes",
+            "Somente em casos de febre",
+          ],
+          correta: "a",
+        },
+
+        // Questão 18
+        {
+          n: 158,
+          enu: "A pele quente e seca sugere:",
+          alts: [
+            "Choque descompensado",
+            "Estado febril ou hipertermia",
+            "Hipotermia inicial",
+            "Hipoglicemia",
+          ],
+          correta: "b",
+        },
+
+        // Questão 19
+        {
+          n: 159,
+          enu: "A frequência respiratória de 8 irpm em adulto indica:",
+          alts: [
+            "Normalidade",
+            "Hipoventilação perigosa",
+            "Hiperventilação compensatória",
+            "Ansiedade intensa",
+          ],
+          correta: "b",
+        },
+
+        // Questão 20
+        {
+          n: 160,
+          enu: "A melhor forma de avaliar perfusão periférica em ambiente de baixo recurso é:",
+          alts: [
+            "Pressão arterial",
+            "Temperatura axilar",
+            "Tempo de enchimento capilar",
+            "Tamanho da pupila",
+          ],
+          correta: "c",
+        },
+
+        // --- QUESTÕES DE MÚLTIPLA ESCOLHA ---
+
+        // Apêndice 02 – Escala de Coma de Glasgow (ECG)
+
+        // Questão 1
+        {
+          n: 161,
+          enu: "Paciente abre os olhos ao chamado, confuso nas respostas e retira o membro ao estímulo doloroso. Qual é a ECG?",
+          alts: ["12", "11", "10", "13"],
+          correta: "b", // O3 + V4 + M4 = 11
+        },
+
+        // Questão 2
+        {
+          n: 162,
+          enu: "A pontuação mínima da Escala de Coma de Glasgow é:",
+          alts: ["0", "1", "2", "3"],
+          correta: "d",
+        },
+
+        // Questão 3
+        {
+          n: 163,
+          enu: "Paciente não abre os olhos, emite sons incompreensíveis e apresenta flexão anormal dos membros. Qual a pontuação?",
+          alts: ["6", "5", "7", "8"],
+          correta: "c", // O1 + V2 + M3 = 6
+        },
+
+        // Questão 4
+        {
+          n: 164,
+          enu: "A resposta motora 'localiza dor' corresponde a:",
+          alts: ["4 pontos", "3 pontos", "6 pontos", "5 pontos"],
+          correta: "d",
+        },
+
+        // Questão 5
+        {
+          n: 165,
+          enu: "A abertura ocular espontânea corresponde a qual pontuação?",
+          alts: ["3", "4", "2", "1"],
+          correta: "b",
+        },
+
+        // Questão 6
+        {
+          n: 166,
+          enu: "Paciente abre olhos à dor, emite palavras inapropriadas e faz extensão anormal. Qual ECG?",
+          alts: ["7", "8", "6", "5"],
+          correta: "c", // O2 + V3 + M2 = 7
+        },
+
+        // Questão 7
+        {
+          n: 167,
+          enu: "Qual achado indica NECESSIDADE DE VIA AÉREA protegida segundo princípios da ECG?",
+          alts: [
+            "ECG 15",
+            "ECG 12 com fala confusa",
+            "ECG 8 ou menos",
+            "ECG 14 com vômitos",
+          ],
+          correta: "c",
+        },
+
+        // Questão 8
+        {
+          n: 168,
+          enu: "A resposta verbal 'confuso' corresponde a:",
+          alts: ["3 pontos", "2 pontos", "4 pontos", "5 pontos"],
+          correta: "c",
+        },
+
+        // Questão 9
+        {
+          n: 169,
+          enu: "Paciente com olhos fechados que não abrem, sem fala e sem resposta motora. ECG total é:",
+          alts: ["0", "1", "3", "5"],
+          correta: "c", // 1+1+1 = 3, mínimo
+        },
+
+        // Questão 10
+        {
+          n: 170,
+          enu: "Flexão anormal (decorticação) corresponde a qual pontuação?",
+          alts: ["5", "3", "2", "4"],
+          correta: "b",
+        },
+
+        // Questão 11
+        {
+          n: 171,
+          enu: "A extensão anormal (descerebração) vale:",
+          alts: ["2", "3", "4", "5"],
+          correta: "a",
+        },
+
+        // Questão 12
+        {
+          n: 172,
+          enu: "Paciente abre olhos espontaneamente, fala orientado e obedece comandos. ECG total é:",
+          alts: ["12", "13", "15", "14"],
+          correta: "c",
+        },
+
+        // Questão 13
+        {
+          n: 173,
+          enu: "Paciente abre olhos ao som, produz sons incompreensíveis e apresenta retirada ao estímulo doloroso. ECG é:",
+          alts: ["10", "9", "8", "11"],
+          correta: "b", // O3 + V2 + M4 = 9
+        },
+
+        // Questão 14
+        {
+          n: 174,
+          enu: "A retirada ao estímulo doloroso corresponde a qual pontuação de resposta motora?",
+          alts: ["6", "4", "5", "3"],
+          correta: "b",
+        },
+
+        // Questão 15
+        {
+          n: 175,
+          enu: "Paciente que só emite sons incompreensíveis apresenta pontuação verbal:",
+          alts: ["2", "3", "4", "1"],
+          correta: "a",
+        },
+
+        // Questão 16
+        {
+          n: 176,
+          enu: "Qual situação indica TCE moderado segundo a ITO?",
+          alts: ["ECG 13–15", "ECG 9–12", "ECG 8 ou menos", "ECG 4–6"],
+          correta: "b",
+        },
+
+        // Questão 17
+        {
+          n: 177,
+          enu: "Paciente com ausência de abertura ocular, fala confusa e obedece comandos possui ECG:",
+          alts: ["10", "9", "11", "12"],
+          correta: "a", // O1 + V4 + M6 = 11
+        },
+
+        // Questão 18
+        {
+          n: 178,
+          enu: "Quais são os três componentes da ECG?",
+          alts: [
+            "Abertura ocular, função motora e reflexos",
+            "Resposta verbal, motora e pupilar",
+            "Abertura ocular, resposta verbal e resposta motora",
+            "Reflexo de dor, abertura ocular e resposta verbal",
+          ],
+          correta: "c",
+        },
+
+        // Questão 19
+        {
+          n: 179,
+          enu: "Paciente que não abre olhos, emite palavras inapropriadas e não apresenta resposta motora. ECG total:",
+          alts: ["5", "6", "4", "7"],
+          correta: "a", // O1 + V3 + M1 = 5
+        },
+
+        // Questão 20
+        {
+          n: 180,
+          enu: "Qual das situações abaixo indica pior prognóstico neurológico?",
+          alts: [
+            "ECG 10 com melhora após estímulos",
+            "ECG 8 com decorticação",
+            "ECG 6 com descerebração",
+            "ECG 12 com confusão leve",
+          ],
+          correta: "c",
+        },
+      ];
+
+      const lista = document.getElementById("lista");
+
+      function render() {
+        lista.innerHTML = "";
+        for (const q of questoes) {
+          const div = document.createElement("div");
+          div.className = "q";
+          div.id = `q${q.n}`;
+          div.innerHTML = `
+                <div class="q-head">
+                  <div class="q-title"><span class="chip">${q.n}</span> ${q.enu}</div>
+                  <button class="btn" data-action="verificar">Verificar</button>
+
+                </div>
+                <div class="q-body" role="group" aria-label="Questão ${q.n}"></div>
+                <div class="status"></div>
+              `;
+
+          const body = div.querySelector(".q-body");
+          if (q.vf) {
+            ["V", "F"].forEach((val) => {
+              const label = document.createElement("label");
+              label.className = "alt";
+              label.innerHTML = `<input type="radio" name="q${q.n}" value="${val}"> ${val}`;
+              body.appendChild(label);
+            });
+          } else {
+            const letras = ["a", "b", "c", "d"];
+            q.alts.forEach((txt, idx) => {
+              const letra = letras[idx];
+              const label = document.createElement("label");
+              label.className = "alt";
+              label.innerHTML = `<input type="radio" name="q${q.n}" value="${letra}"> (${letra}) ${txt}`;
+              body.appendChild(label);
+            });
+          }
+          lista.appendChild(div);
+        }
+
+        lista.addEventListener("change", (e) => {
+          const lab = e.target?.closest?.(".alt");
+          if (lab) {
+            const group = lab.parentElement;
+            group
+              .querySelectorAll(".alt")
+              .forEach((x) => x.classList.remove("sel"));
+            lab.classList.add("sel");
+          }
+        });
+
+        lista.addEventListener("click", (e) => {
+          const btn = e.target.closest('button[data-action="verificar"]');
+          if (!btn) return;
+          const card = btn.closest(".q");
+          const n = Number(card.id.replace("q", ""));
+          verificar(n);
+          atualizarPlacar();
+        });
+      }
+
+      function verificar(n) {
+        const q = questoes.find((x) => x.n === n);
+        const card = document.getElementById(`q${n}`);
+        const status = card.querySelector(".status");
+        const marcada = card.querySelector("input:checked");
+        card.classList.remove("ok-bg", "bad-bg");
+        status.className = "status";
+        if (!marcada) {
+          status.textContent = "Não respondida.";
+          return false;
+        }
+        const val = marcada.value.toLowerCase();
+        const ok = (q.vf ? val.toUpperCase() : val) === q.correta;
+        if (ok) {
+          card.classList.add("ok-bg");
+          status.classList.add("ok");
+          status.textContent = "✔ Correto";
+        } else {
+          card.classList.add("bad-bg");
+          status.classList.add("bad");
+          if (q.vf) {
+            status.textContent = `✖ Incorreto. Correto: ${q.correta}`;
+          } else {
+            const letras = ["a", "b", "c", "d"];
+            const idx = letras.indexOf(q.correta);
+            const textoCorreto = q.alts[idx];
+            status.textContent = `✖ Incorreto. Correto: (${q.correta}) ${textoCorreto}`;
+          }
+        }
+        return ok;
+      }
+
+      function verificarTudo() {
+        let withKey = 0,
+          correct = 0;
+        for (const q of questoes) {
+          withKey++;
+          if (verificar(q.n)) correct++;
+        }
+        atualizarPlacar(correct, withKey);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function atualizarPlacar(forceCorrect, forceTotal) {
+        let total = forceTotal ?? questoes.length;
+        let correct =
+          forceCorrect ??
+          Array.from(document.querySelectorAll(".status.ok")).length;
+        document.getElementById(
+          "score"
+        ).textContent = `Acertos: ${correct}/${total}`;
+        const ap = total ? Math.round((correct / total) * 100) : 0;
+        document.getElementById(
+          "aproveitamento"
+        ).textContent = `Aproveitamento: ${ap}%`;
+      }
+
+      function resetar() {
+        document
+          .querySelectorAll('input[type="radio"]')
+          .forEach((i) => (i.checked = false));
+        document
+          .querySelectorAll(".alt")
+          .forEach((l) => l.classList.remove("sel"));
+        document
+          .querySelectorAll(".q")
+          .forEach((c) => c.classList.remove("ok-bg", "bad-bg"));
+        document.querySelectorAll(".status").forEach((s) => {
+          s.className = "status";
+          s.textContent = "";
+        });
+        atualizarPlacar(0, questoes.length);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function exportCSV() {
+        const linhas = [
+          ["#", "Enunciado", "Resposta", "Gabarito", "Resultado"],
+        ];
+        for (const q of questoes) {
+          const card = document.getElementById(`q${q.n}`);
+          const marcada = card.querySelector("input:checked");
+          let resp = marcada ? marcada.value.toUpperCase() : "";
+          let gab = q.vf ? q.correta : q.correta.toUpperCase();
+          let resultado = card.querySelector(".status").classList.contains("ok")
+            ? "Correto"
+            : marcada
+            ? "Incorreto"
+            : "Não respondida";
+          linhas.push([
+            q.n,
+            q.enu.replaceAll("\n", " ").trim(),
+            resp,
+            gab,
+            resultado,
+          ]);
+        }
+        const csv = linhas
+          .map((r) =>
+            r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")
+          )
+          .join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "resultado_simulado_dh.csv";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      // Render e binds iniciais
+      render();
+      atualizarPlacar(0, questoes.length);
+
+      document
+        .getElementById("btnCheckAll")
+        .addEventListener("click", verificarTudo);
+      document.getElementById("btnReset").addEventListener("click", resetar);
+      document.getElementById("btnExport").addEventListener("click", exportCSV);
+    </script>
+  </body>
+</html>
